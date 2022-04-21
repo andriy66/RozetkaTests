@@ -3,9 +3,11 @@ package utils
 import com.codeborne.selenide.Configuration
 import com.codeborne.selenide.Selenide.open
 import com.codeborne.selenide.WebDriverRunner.closeWebDriver
+import helpers.TestListener
 import org.testng.annotations.*
 import org.testng.asserts.SoftAssert
 
+@Listeners(TestListener::class)
 open class BaseTest {
     val softAssert = SoftAssert()
 
