@@ -34,8 +34,9 @@ class HomeScreen : BaseScreen() {
     }
 
     @Step("Click 'Catalog' button")
-    fun openCatalog() {
+    fun openCatalog(): CatalogScreen {
         catalogButton.click()
+        return CatalogScreen()
     }
 
     @Step("Click 'Home' button")
