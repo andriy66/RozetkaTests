@@ -27,6 +27,11 @@ open class BaseScreen {
         return `$`(By.cssSelector(cssSelector))
     }
 
+    fun findElementByText(text: String) : SelenideElement {
+        val element = findByXpath("//*[@text = '$text']")
+        return element
+    }
+
     fun findElementsByCssSelector(cssSelector: String): ElementsCollection {
         return `$$`(By.cssSelector(cssSelector))
     }
