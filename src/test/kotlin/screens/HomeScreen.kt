@@ -1,31 +1,45 @@
 package screens
 
 import helpers.BaseScreen
+import io.qameta.allure.Step
 
-class MainScreen : BaseScreen() {
-    val search = findById("view_search_tv")
-    val yet = findById("graph_more")
-    val wishList = findById("graph_wishlists")
-    val cart = findById("graph_cart")
-    val catalog = findById("graph_fatMenu")
+class HomeScreen : BaseScreen() {
+    val searchField = findById("view_search_tv")
+    val yetButton = findById("graph_more")
+    val wishListButton = findById("graph_wishlists")
+    val cartButton = findById("graph_cart")
+    val catalogButton = findById("graph_fatMenu")
+    val homeButton = findById("graph_home")
 
+    @Step("Click 'Search' button")
     fun clickSearch() {
-        search.click()
+        searchField.click()
     }
 
-    fun clickYet() {
-        yet.click()
+    @Step("Open 'Yet' button")
+    fun openYet(): YetScreen {
+        yetButton.click()
+
+        return YetScreen()
     }
 
-    fun clickWishList() {
-        wishList.click()
+    @Step("Open 'Wish List' button")
+    fun openWishList() {
+        wishListButton.click()
     }
 
-    fun clickCart() {
-        cart.click()
+    @Step("Open 'Cart' button")
+    fun openCart() {
+        cartButton.click()
     }
 
-    fun clickCatalog() {
-        catalog.click()
+    @Step("Click 'Catalog' button")
+    fun openCatalog() {
+        catalogButton.click()
+    }
+
+    @Step("Click 'Home' button")
+    fun openHome() {
+        homeButton.click()
     }
 }

@@ -1,9 +1,8 @@
-package utils
+package helpers
 
 import com.codeborne.selenide.Configuration
 import com.codeborne.selenide.Selenide.open
 import com.codeborne.selenide.WebDriverRunner.closeWebDriver
-import helpers.TestListener
 import org.testng.annotations.*
 import org.testng.asserts.SoftAssert
 
