@@ -58,7 +58,9 @@ class Tests : BaseTest() {
             .openProductDescription(monitorName)
 
         //Adding the product to the cart
-        val cartScreen = monitorDescription.addToCart()
+        val cartScreen = monitorDescription
+            .addToCart()
+            .openCart()
         val product = cartScreen.getMonitorFromCart()
 
         //Check that product is in the cart
@@ -74,5 +76,72 @@ class Tests : BaseTest() {
 
         //Check that product has been deleted
         assertEquals(removeFromCart.emptyCart(), true, "Product had`t been deleted")
+    }
+
+    @Test
+    @Description("Verify that you can add the product to the Wish List")
+    fun verifyThatCustomerCanAddProductToLikedList() {
+        val catalogScreen = HomeScreen().openCatalog()
+        val chooseTheCategory = catalogScreen.openCategoryLaptopsAndComputers()
+        val chooseTheSubCategory = chooseTheCategory.openListOfProducts()
+
+        val monitorName = "Монітор 27\" Dell S2722DC (210-BBRR) 75Hz/8-bit/USB Type-C Power Delivery 65W"
+
+        val monitorDescription = chooseTheSubCategory
+            .openProductDescription(monitorName)
+
+        //Adding Monitor to the Wish List
+        val addMonitor = monitorDescription
+            .addToWishList()
+            .openWishList()
+
+        val monitor = addMonitor.getMonitorFromWishList()
+
+        //Check that monitor is in Wish List
+        assertEquals(monitor.text, monitorName, "The product isn`t in the Wish List")
+
+        val itemMenu = addMonitor.openItemMenu()
+        val relocateMonitor = itemMenu.clickRelocateProduct()
+
+        val createWishList = relocateMonitor.createWishList()
+
+        //Check that Wish List is unchecked
+        val isDefaultWishList = createWishList.makeDefaultWishListCheckBox.isSelected
+
+        softAssert.assertEquals(isDefaultWishList, false, "It is default Wish List")
+
+        //Create new Wish List
+        val wishListName = "Test"
+        createWishList.fillInWishListName(wishListName)
+        val emptyWishList = createWishList.clickCreateWishList()
+
+        //Check that Wish List is empty
+        assertEquals(emptyWishList.wishListIsEmpty(), true, "Wish List isn`t empty")
+
+        val productDescription = emptyWishList.getBackToProductDescription()
+        val listOfProductsScreen = productDescription.getBack()
+
+        //Open Wish Lists
+        val wishLists = listOfProductsScreen.openWishLists()
+
+        //Open Wish List
+        val testWishScreen = wishLists.openWishList()
+        val monitorInTestWishList = testWishScreen.getMonitorFromWishList()
+
+        //Check that monitor is in Test Wish List
+        assertEquals(monitorInTestWishList.text, monitorName, "The product isn`t in the Wish List")
+
+        //Deleting Wish List
+        val deleteFromWishLists = testWishScreen
+            .getBackToWishLists()
+            .openWishListMenu()
+            .deleteWishList()
+
+        softAssert.assertEquals(
+            deleteFromWishLists.getMessage(),
+            "Ви дійсно хочете видалити список \"Test\" в якому 1 товар?"
+        )
+
+        deleteFromWishLists.clickDelete()
     }
 }
