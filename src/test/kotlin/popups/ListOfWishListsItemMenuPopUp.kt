@@ -7,9 +7,9 @@ class ListOfWishListsItemMenuPopUp : ListOfWishListsScreen() {
     private val deleteWishListButton = findElementByText("Видалити список")
 
     @Step("Delete Wish List")
-    fun deleteWishList(): DeletingWishListPopUp {
+    fun deleteWishList(): DeletingPopUp {
         deleteWishListButton.click()
 
-        return DeletingWishListPopUp()
+        return DeletingPopUp()
     }
 }
