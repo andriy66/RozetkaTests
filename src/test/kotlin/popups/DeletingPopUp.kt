@@ -4,7 +4,7 @@ import com.codeborne.selenide.Selenide.`$`
 import io.qameta.allure.Step
 import org.openqa.selenium.By
 
-class DeletingWishListPopUp {
+class DeletingPopUp {
     val message = `$`(By.id("android:id/message"))
     val deleteButton = `$`(By.id("android:id/button1"))
     val cancelButton = `$`(By.id("android:id/button2"))
