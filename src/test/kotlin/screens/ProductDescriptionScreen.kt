@@ -8,6 +8,7 @@ import java.lang.Thread.sleep
 class ProductDescriptionScreen : BaseScreen() {
     private val cartButton = findById("bottom_bar_iv_cart_image")
     private val wishButton = findById("bottom_bar_iv_wish_image")
+    val priceLabel = findById("view_price_tv_price")
 
     @Step("Add to the Cart")
     fun addToCart(): ProductDescriptionScreen {
@@ -15,6 +16,10 @@ class ProductDescriptionScreen : BaseScreen() {
         cartButton.click()
 
         return this
+    }
+
+    fun getPrice(): String {
+        return priceLabel.text
     }
 
     fun openCart(): CartScreen {

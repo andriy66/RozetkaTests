@@ -8,7 +8,6 @@ import helpers.Properties
 import org.testng.Assert.assertEquals
 
 class Tests : BaseTest() {
-
     @Description("Verify that you can log in with valid data")
     fun verifyThatCantLogInWithValidDataAndCanLogInWithValid() {
         val homeScreen = HomeScreen()
@@ -143,5 +142,32 @@ class Tests : BaseTest() {
         )
 
         deleteFromWishLists.clickDelete()
+    }
+
+    @Test
+    @Description("Verify that sort is working correctly")
+    fun checkThatFilterAndSortIsWorkingCorrectly() {
+        val homeScreen = HomeScreen()
+        val listOfProductsScreen = homeScreen.findProduct("iphone 13")
+
+        //Sort the products from cheap to expensive
+        val sort = listOfProductsScreen
+            .openSortPopUp()
+            .chooseFromCheapToExpensive()
+
+        //Get the price of product after sorting from cheap to expensive
+        val cheapProductPrice =
+            sort.getProductPrice("Мобільний телефон Apple iPhone 13 mini 128 GB (PRODUCT) Red Офіційна гарантія")
+
+        //Sort the products from expensive to cheap
+        val sortListOfProducts = sort
+            .openSortPopUp()
+            .chooseFromExpensiveToCheap()
+
+        //Get the price of product after sorting from expensive to cheap
+        val expensiveProductPrice = sortListOfProducts.getProductPrice("Мобільний телефон Apple iPhone 13 Pro Max 512 GB Gold Офіційна гарантія")
+
+        //Check that the price of first product after sorting from cheap to expensive is less that the price of first element after sorting from expensive to cheap
+        softAssert.assertTrue(cheapProductPrice < expensiveProductPrice)
     }
 }

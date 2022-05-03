@@ -7,9 +7,9 @@ class CatalogScreen : BaseScreen() {
     val categoryLaptopsAndComputers = findElementByText("Ноутбуки та комп’ютери")
 
     @Step("Open Category 'Laptops And Computers'")
-    fun openCategoryLaptopsAndComputers(): LaptopsSubCategories {
+    fun openCategoryLaptopsAndComputers(): LaptopsSubCategoryScreen {
         categoryLaptopsAndComputers.click()
 
-        return LaptopsSubCategories()
+        return LaptopsSubCategoryScreen()
     }
 }
