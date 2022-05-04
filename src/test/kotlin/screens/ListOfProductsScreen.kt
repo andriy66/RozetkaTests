@@ -7,6 +7,7 @@ import popups.SortPopUp
 
 open class ListOfProductsScreen : BaseScreen() {
     private val wishListScreen = findById("graph_wishlists")
+    private val yetScreen = findById("graph_more")
     val filterButton = findById("section_ll_filter")
     val sortButton = findById("section_ll_sort")
 
@@ -34,8 +35,15 @@ open class ListOfProductsScreen : BaseScreen() {
         return ListOfWishListsScreen()
     }
 
+    @Step("Open Yet Screen")
+    fun openYet(): YetScreen {
+        yetScreen.click()
+
+        return YetScreen()
+    }
+
     @Step("Open Filter Pop Up")
-    fun openFilterPopUp(): FilterPopUp{
+    fun openFilterPopUp(): FilterPopUp {
         filterButton.click()
 
         return FilterPopUp()
