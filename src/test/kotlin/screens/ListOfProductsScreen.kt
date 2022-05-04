@@ -8,6 +8,7 @@ import popups.SortPopUp
 open class ListOfProductsScreen : BaseScreen() {
     private val wishListScreen = findById("graph_wishlists")
     private val yetScreen = findById("graph_more")
+    private val homeButton = findById("graph_home")
     val filterButton = findById("section_ll_filter")
     val sortButton = findById("section_ll_sort")
 
@@ -54,5 +55,12 @@ open class ListOfProductsScreen : BaseScreen() {
         sortButton.click()
 
         return SortPopUp()
+    }
+
+    @Step("Open Home Screen")
+    fun openHomeScreen(): HomeScreen {
+        homeButton.click()
+
+        return HomeScreen()
     }
 }

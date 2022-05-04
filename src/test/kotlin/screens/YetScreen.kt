@@ -31,4 +31,11 @@ class YetScreen : BaseScreen() {
 
         return ListOfComparisonScreen()
     }
+
+    @Step("Open Watched Screen")
+    fun openWatchedScreen(): WatchedScreen {
+        watchedButton.click()
+
+        return WatchedScreen()
+    }
 }

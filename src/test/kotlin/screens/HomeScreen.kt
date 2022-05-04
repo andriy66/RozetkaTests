@@ -52,4 +52,12 @@ class HomeScreen : BaseScreen() {
 
         return this
     }
+
+    @Step("Open Watch Screen")
+    fun openWatchScreen(): WatchedScreen {
+        val watchedScreen = findById("main_carousel_tv_recent_all")
+        watchedScreen.click()
+
+        return WatchedScreen()
+    }
 }

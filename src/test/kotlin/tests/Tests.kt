@@ -6,6 +6,7 @@ import screens.HomeScreen
 import helpers.BaseTest
 import helpers.Properties
 import org.testng.Assert.assertEquals
+import org.testng.Assert.assertTrue
 
 class Tests : BaseTest() {
     @Description("Verify that you can log in with valid data")
@@ -216,5 +217,39 @@ class Tests : BaseTest() {
 
         //Check that list was deleted
         assertEquals(messageOfDeleting, "Немає товарів в порівнянні", "The list was`t deleted")
+    }
+
+    @Test
+    @Description("Verify that after searching the product is adding to 'Переглянуті товари'")
+    fun checkThatAfterSearchingProdAddToViewScreen() {
+        val productName = "Мобільний телефон Apple iPhone 13 Pro Max 128 GB Gold Офіційна гарантія"
+        //Delete data in Watched List if it exists
+        val clearData = HomeScreen()
+            .openYet()
+            .openWatchedScreen()
+            .clearWatchedData()
+
+        //Check that data from Watched List is empty
+        assertEquals(clearData.getMessage(),"Ви ще не переглядали товари")
+
+        val homeScreen = clearData.openHomeScreen()
+        val listOfProduct = homeScreen.findProduct("iphone 13")
+
+        val product = listOfProduct.openProductDescription(productName)
+        val watchedScreen = product
+            .getBack()
+            .openHomeScreen()
+            .openWatchScreen()
+
+        val productFromWatchedList = watchedScreen.getProductFromWatchedList(productName)
+
+        //Check that product is in Watched List
+        assertTrue(productFromWatchedList.isDisplayed)
+
+        //Clear all data
+        watchedScreen.clearWatchedData()
+
+        //Check that data was deleted
+        assertEquals(clearData.getMessage(),"Ви ще не переглядали товари")
     }
 }
