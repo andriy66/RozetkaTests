@@ -25,6 +25,13 @@ class YetScreen : BaseScreen() {
         return AuthorizeScreen()
     }
 
+    @Step("Open Comparison Screen")
+    fun openComparisonScreen(): ListOfComparisonScreen {
+        comparisonButton.click()
+
+        return ListOfComparisonScreen()
+    }
+
     @Step("Open Watched Screen")
     fun openWatchedScreen(): WatchedScreen {
         watchedButton.click()

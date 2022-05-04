@@ -45,7 +45,7 @@ class Tests : BaseTest() {
         val catalogScreen = HomeScreen()
             .openCatalog()
 
-        val chooseTheCategory = catalogScreen.openCategoryLaptopsAndComputers()
+        val chooseTheCategory = catalogScreen.openCategoryLaptopsAndComputersSubCategoryScreen()
         val chooseTheSubCategory = chooseTheCategory.openListOfProducts()
 
         //Check that List of Products Screen opened
@@ -82,7 +82,7 @@ class Tests : BaseTest() {
     @Description("Verify that you can add the product to the Wish List")
     fun verifyThatCustomerCanAddProductToLikedList() {
         val catalogScreen = HomeScreen().openCatalog()
-        val chooseTheCategory = catalogScreen.openCategoryLaptopsAndComputers()
+        val chooseTheCategory = catalogScreen.openCategoryLaptopsAndComputersSubCategoryScreen()
         val chooseTheSubCategory = chooseTheCategory.openListOfProducts()
 
         val monitorName = "Монітор 27\" Dell S2722DC (210-BBRR) 75Hz/8-bit/USB Type-C Power Delivery 65W"
@@ -166,10 +166,57 @@ class Tests : BaseTest() {
             .chooseFromExpensiveToCheap()
 
         //Get the price of product after sorting from expensive to cheap
-        val expensiveProductPrice = sortListOfProducts.getProductPrice("Мобільний телефон Apple iPhone 13 Pro Max 512 GB Gold Офіційна гарантія")
+        val expensiveProductPrice =
+            sortListOfProducts.getProductPrice("Мобільний телефон Apple iPhone 13 Pro Max 512 GB Gold Офіційна гарантія")
 
         //Check that the price of first product after sorting from cheap to expensive is less that the price of first element after sorting from expensive to cheap
         softAssert.assertTrue(cheapProductPrice < expensiveProductPrice)
+    }
+
+    @Test
+    @Description("Verify that customer can add the products for comparison")
+    fun verifyThatCustomerCanAddTheProductsForComparison() {
+        val catalogScreen = HomeScreen()
+            .openCatalog()
+
+        //Choose the category 'Zoo Products'
+        val gamerProducts = catalogScreen.openCategoryGamersProducts()
+
+        //Open the Sub Category
+        val listOfProducts = gamerProducts.openGameConsolesListOfProducts()
+
+        //Add first product to Comparison
+        val firstProduct =
+            listOfProducts.openProductDescription("Ігрова консоль Nintendo Switch неоновий червоний / неоновий синій (45496452643)")
+        val allProductsList = firstProduct
+            .addToComparison()
+            .getBack()
+
+        //Add second product to Comparison
+        val secondProduct = allProductsList.openProductDescription("Ігрова консоль Nintendo Switch Сірий (45496452612)")
+        val listOfProductsScreen = secondProduct
+            .addToComparison()
+            .getBack()
+
+        //Open Comparison
+        val yetScreen = listOfProductsScreen.openYet()
+        val comparisonScreen = yetScreen
+            .openComparisonScreen()
+            .openComparisonList()
+
+        val difference = comparisonScreen.clickDifference()
+        //Check difference
+        val firstProductProp = difference.isProperDisplayed("Синій + Червоний")
+        val secondProductProp = difference.isProperDisplayed("Сірий")
+
+        assertEquals(firstProductProp, secondProductProp, "The properties are displayed")
+
+        //Delete list
+        val deleteList = difference.getBack().deleteComparisonList()
+        val messageOfDeleting = deleteList.getMessage()
+
+        //Check that list was deleted
+        assertEquals(messageOfDeleting, "Немає товарів в порівнянні", "The list was`t deleted")
     }
 
     @Test
