@@ -1,8 +1,7 @@
-package screens.categories
+package screens
 
 import helpers.BaseScreen
 import io.qameta.allure.Step
-import screens.ListOfProductsScreen
 
 class LaptopsSubCategoryScreen : BaseScreen() {
     val monitorsButton = findElementByText("Монітори")

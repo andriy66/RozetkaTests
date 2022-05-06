@@ -27,7 +27,7 @@ open class BaseScreen {
         return `$`(By.cssSelector(cssSelector))
     }
 
-    fun findElementByText(text: String): SelenideElement {
+    fun findElementByText(text: String) : SelenideElement {
         val element = findByXpath("//*[@text = '$text']")
         return element
     }
@@ -36,49 +36,47 @@ open class BaseScreen {
         return `$$`(By.cssSelector(cssSelector))
     }
 
-    fun scroll(dir: ScrollDirection = ScrollDirection.DOWN, times: Int = 1) {
+    fun scroll(dir: ScrollDirection = ScrollDirection.DOWN) {
         val driver = (getWebDriver() as AndroidDriver)
         val duration = 1000
         val finger = PointerInput(PointerInput.Kind.TOUCH, "finger")
         val dimension: Dimension = driver.manage().window().size
         var start = Point(0, 0)
         var end = Point(0, 0)
-        for (i in 0 until times) {
-            when (dir) {
-                ScrollDirection.DOWN -> {
-                    start = Point((dimension.width * 0.5).toInt(), (dimension.height * 0.9).toInt())
-                    end = Point((dimension.width * 0.2).toInt(), (dimension.height * 0.1).toInt())
-                }
-                ScrollDirection.UP -> {
-                    start = Point((dimension.width * 0.5).toInt(), (dimension.height * 0.2).toInt())
-                    end = Point((dimension.width / 2), (dimension.height - 10))
-                }
-                ScrollDirection.LEFT -> {
-                    start = Point((dimension.width - 10), (dimension.height / 2))
-                    end = Point((dimension.width * 0.1).toInt(), (dimension.height / 2))
-                }
-                ScrollDirection.RIGHT -> {
-                    start = Point((dimension.width * 0.1).toInt(), (dimension.height / 2))
-                    end = Point((dimension.width - 10), (dimension.height / 2))
-                }
+        when (dir) {
+            ScrollDirection.DOWN -> {
+                start = Point((dimension.width * 0.5).toInt(), (dimension.height * 0.9).toInt())
+                end = Point((dimension.width * 0.2).toInt(), (dimension.height * 0.1).toInt())
             }
-            val swipe = Sequence(finger, 1)
-                .addAction(
-                    finger.createPointerMove(
-                        Duration.ofMillis(0),
-                        PointerInput.Origin.viewport(), start.getX(), start.getY()
-                    )
-                )
-                .addAction(finger.createPointerDown(LEFT.asArg()))
-                .addAction(
-                    finger.createPointerMove(
-                        Duration.ofMillis(duration.toLong()),
-                        PointerInput.Origin.viewport(), end.getX(), end.getY()
-                    )
-                )
-                .addAction(finger.createPointerUp(LEFT.asArg()))
-            driver.perform(listOf(swipe))
+            ScrollDirection.UP -> {
+                start = Point((dimension.width * 0.5).toInt(), (dimension.height * 0.2).toInt())
+                end = Point((dimension.width / 2), (dimension.height - 10))
+            }
+            ScrollDirection.LEFT -> {
+                start = Point((dimension.width - 10), (dimension.height / 2))
+                end = Point((dimension.width * 0.1).toInt(), (dimension.height / 2))
+            }
+            ScrollDirection.RIGHT -> {
+                start = Point((dimension.width * 0.1).toInt(), (dimension.height / 2))
+                end = Point((dimension.width - 10), (dimension.height / 2))
+            }
         }
+        val swipe = Sequence(finger, 1)
+            .addAction(
+                finger.createPointerMove(
+                    Duration.ofMillis(0),
+                    PointerInput.Origin.viewport(), start.getX(), start.getY()
+                )
+            )
+            .addAction(finger.createPointerDown(LEFT.asArg()))
+            .addAction(
+                finger.createPointerMove(
+                    Duration.ofMillis(duration.toLong()),
+                    PointerInput.Origin.viewport(), end.getX(), end.getY()
+                )
+            )
+            .addAction(finger.createPointerUp(LEFT.asArg()))
+        driver.perform(listOf(swipe))
     }
 }
 

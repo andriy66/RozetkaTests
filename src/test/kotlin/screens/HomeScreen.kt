@@ -28,10 +28,8 @@ class HomeScreen : BaseScreen() {
     }
 
     @Step("Open 'Wish List' button")
-    fun openWishList(): WishListScreen {
+    fun openWishList() {
         wishListButton.click()
-
-        return WishListScreen()
     }
 
     @Step("Open 'Cart' button")
@@ -42,15 +40,12 @@ class HomeScreen : BaseScreen() {
     @Step("Click 'Catalog' button")
     fun openCatalog(): CatalogScreen {
         catalogButton.click()
-
         return CatalogScreen()
     }
 
     @Step("Click 'Home' button")
-    fun openHome(): HomeScreen {
+    fun openHome() {
         homeButton.click()
-
-        return this
     }
 
     @Step("Open Watch Screen")
