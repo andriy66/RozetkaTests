@@ -6,6 +6,5 @@ import utils.BaseTest
 class Tests : BaseTest() {
     @Test
     fun test() {
-
     }
 }
