@@ -18,7 +18,6 @@ class Properties {
 
         val URL = URL(getProperty("url"))
         val PLATFORM_NAME = "Android"
-        //val DEVICE_NAME = "Pixel_4_API_30"
         val DEVICE_NAME = "Pixel_3_API_30"
         val PLATFORM_VERSION = "11"
         val PATH =

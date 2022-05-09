@@ -1,6 +1,5 @@
 package screens
 
-import com.codeborne.selenide.SelenideElement
 import helpers.BaseScreen
 import io.qameta.allure.Step
 
@@ -16,6 +15,7 @@ class AuthorizeScreen : BaseScreen() {
     val signInWithSocialLabel = findById("sign_in_tv_social")
     val signInWithFacebookButton = findById("sign_in_b_facebook")
     val signInWithGoogleButton = findById("sign_in_b_google")
+    val errorMessage = findByXpath("//*[@content-desc='Помилка']")
 
     @Step("Authorize")
     fun authorize(login: String, password: String): AuthorizedYetScreen {
@@ -24,12 +24,5 @@ class AuthorizeScreen : BaseScreen() {
         signInButton.click()
 
         return AuthorizedYetScreen()
-    }
-
-    @Step("Get Failed Icon")
-    fun getFailedIcon(): SelenideElement {
-        val errorMessage = findByXpath("//*[@content-desc='Помилка']")
-
-        return errorMessage
     }
 }
