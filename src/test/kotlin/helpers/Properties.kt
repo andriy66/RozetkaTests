@@ -1,4 +1,4 @@
-package utils
+package helpers
 
 import java.io.File
 import java.io.File.separator
@@ -18,7 +18,7 @@ class Properties {
 
         val URL = URL(getProperty("url"))
         val PLATFORM_NAME = "Android"
-        val DEVICE_NAME = "Pixel_4_API_30"
+        val DEVICE_NAME = "Pixel_3_API_30"
         val PLATFORM_VERSION = "11"
         val PATH =
             File("src${separator}test${separator}resources${separator}app-envprod-homeaway-debug.apk").absolutePath
