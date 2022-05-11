@@ -59,16 +59,12 @@ class Tests : BaseTest() {
         val product = cartScreen.monitor
 
         //Check that product is in the cart
-        Assert.assertEquals(
-            product.text,
-            "Монітор 27\" Dell S2722DC (210-BBRR) 75Hz/8-bit/USB Type-C Power Delivery 65W",
-            "Product isn`t in cart"
-        )
+        Assert.assertEquals(product.text, monitorName, "Product isn`t in cart")
 
         //Remove product from Cart
         val removeFromCart = cartScreen
             .openItemMenu()
-            .clickRemoveFromCart()
+            .removeFromCart()
 
         //Check that product has been deleted
         Assert.assertTrue(removeFromCart.emptyCart(), "Product had`t been deleted")

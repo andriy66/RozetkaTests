@@ -14,6 +14,9 @@ open class ListOfProductsScreen : BaseScreen() {
     @Step("Open Product Description")
     fun openProductDescription(productName: String): ProductDescriptionScreen {
         val product = findElementByText(productName)
+        if(!product.isDisplayed){
+           throw Exception("The product isn`t exist")
+        }
         product.click()
 
         return ProductDescriptionScreen()
@@ -22,7 +25,7 @@ open class ListOfProductsScreen : BaseScreen() {
     @Step("Get product price")
     fun getProductPrice(text: String): Int {
         val productDescription = openProductDescription(text)
-        val price = productDescription.getPrice().filter { !it.isWhitespace() }
+        val price = productDescription.priceLabel.text.filter { !it.isWhitespace() }
         productDescription.getBack()
 
         return price.toInt()

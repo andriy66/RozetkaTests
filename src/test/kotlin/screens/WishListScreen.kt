@@ -8,7 +8,7 @@ import popups.WishListItemMenuPopUp
 open class WishListScreen : BaseScreen() {
     private val getBackButton = findByXpath("//*[@content-desc='Перейти вгору']")
     private val message = findById("empty_base_tv_title")
-    val itemMenu = findById("item_wishlist_offer_fl_menu")
+    private val itemMenu = findById("item_wishlist_offer_fl_menu")
 
     fun getMonitorFromWishList(): SelenideElement {
         val monitor = findById("section_offer_tv_title")

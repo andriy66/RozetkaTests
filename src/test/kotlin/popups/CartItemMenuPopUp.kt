@@ -5,10 +5,10 @@ import io.qameta.allure.Step
 import screens.CartScreen
 
 class CartItemMenuPopUp : BaseScreen() {
-    val removeFromCart = findElementByText("Видалити з кошика")
+    private val removeFromCart = findElementByText("Видалити з кошика")
 
     @Step("Click Remove From Cart")
-    fun clickRemoveFromCart(): CartScreen {
+    fun removeFromCart(): CartScreen {
         removeFromCart.click()
 
         return CartScreen()
