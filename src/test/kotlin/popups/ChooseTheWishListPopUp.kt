@@ -7,7 +7,7 @@ import org.openqa.selenium.By
 import screens.NewWishListScreen
 
 class ChooseTheWishListPopUp : BaseScreen() {
-    val createWishListButton = `$`(By.id("android:id/text1"))
+    private val createWishListButton = `$`(By.id("android:id/text1"))
 
     @Step("Create Wish List")
     fun createWishList(): NewWishListScreen {

@@ -3,6 +3,7 @@ package screens
 import helpers.BaseScreen
 import io.qameta.allure.Step
 import popups.SortPopUp
+import java.lang.Thread.sleep
 
 open class ListOfProductsScreen : BaseScreen() {
     private val wishListScreen = findById("graph_wishlists")
@@ -13,6 +14,7 @@ open class ListOfProductsScreen : BaseScreen() {
 
     @Step("Open Product Description")
     fun openProductDescription(productName: String): ProductDescriptionScreen {
+        sleep(1000)
         val product = findElementByText(productName)
         if(!product.isDisplayed){
            throw Exception("The product isn`t exist")
@@ -25,10 +27,16 @@ open class ListOfProductsScreen : BaseScreen() {
     @Step("Get product price")
     fun getProductPrice(text: String): Int {
         val productDescription = openProductDescription(text)
-        val price = productDescription.priceLabel.text.filter { !it.isWhitespace() }
-        productDescription.getBack()
+        try {
+            val price = productDescription.priceLabel.text.filter { !it.isWhitespace() }
+            productDescription.getBack()
 
-        return price.toInt()
+            return price.toInt()
+        }catch (e: Exception){
+            println(e.message)
+        }
+
+        return Int.MIN_VALUE
     }
 
     @Step("Open Wish List")
