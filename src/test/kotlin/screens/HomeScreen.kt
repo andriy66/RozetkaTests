@@ -19,14 +19,23 @@ class HomeScreen : BaseScreen() {
     }
 
     @Step("Open 'Cart' button")
-    fun openCart() {
+    fun openCart(): CartScreen {
         cartButton.click()
+
+        return CartScreen()
     }
 
-    @Step("Click 'Home' button")
+    @Step("Open 'Home' button")
     fun openHome(): HomeScreen {
         homeButton.click()
 
         return this
+    }
+
+    @Step("Open 'Catalog' button")
+    fun openCatalog(): CatalogScreen {
+        catalogButton.click()
+
+        return CatalogScreen()
     }
 }
