@@ -14,7 +14,7 @@ open class ListOfProductsScreen : BaseScreen() {
 
     @Step("Open Product Description")
     fun openProductDescription(productName: String): ProductDescriptionScreen {
-        sleep(1000)
+        customWait()
         val product = findElementByText(productName)
         if(!product.isDisplayed){
            throw Exception("The product isn`t exist")
@@ -32,8 +32,8 @@ open class ListOfProductsScreen : BaseScreen() {
             productDescription.getBack()
 
             return price.toInt()
-        }catch (e: Exception){
-            println(e.message)
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
 
         return Int.MIN_VALUE

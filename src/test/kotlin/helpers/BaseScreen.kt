@@ -15,8 +15,8 @@ import org.openqa.selenium.interactions.Sequence
 import java.time.Duration
 
 open class BaseScreen {
-    fun findById(id: String): SelenideElement {
-        return `$`(By.id("ua.com.rozetka.shop:id/$id"))
+    fun findById(id: String, prefix: String = "ua.com.rozetka.shop:id/"): SelenideElement {
+        return `$`(By.id(prefix + id))
     }
 
     fun findByXpath(xpath: String): SelenideElement {
@@ -79,6 +79,10 @@ open class BaseScreen {
                 .addAction(finger.createPointerUp(LEFT.asArg()))
             driver.perform(listOf(swipe))
         }
+    }
+
+    fun customWait(times: Long = 1000) {
+        getWebDriver().manage().timeouts().implicitlyWait(Duration.ofMillis(times))
     }
 }
 
