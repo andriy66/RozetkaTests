@@ -24,4 +24,12 @@ class YetScreen : BaseScreen() {
 
         return AuthorizeScreen()
     }
+
+    @Step("Open Watched Screen")
+    fun openWatchedScreen(): WatchedScreen {
+        scroll()
+        watchedButton.click()
+
+        return WatchedScreen()
+    }
 }
