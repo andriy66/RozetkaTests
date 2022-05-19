@@ -1,5 +1,6 @@
 package screens
 
+import com.codeborne.selenide.Condition
 import helpers.BaseScreen
 import io.qameta.allure.Step
 
@@ -10,6 +11,18 @@ class HomeScreen : BaseScreen() {
     private val cartButton = findById("graph_cart")
     private val catalogButton = findById("graph_fatMenu")
     private val homeButton = findById("graph_home")
+
+    @Step("Fill data in field 'Search'")
+    fun findProduct(text: String): ListOfProductsScreen {
+        searchField.click()
+        val presentSearchItem = findElementByText(text).shouldBe(Condition.visible)
+        if (!presentSearchItem.isDisplayed) {
+            throw Exception("The product isn`t in list")
+        }
+        presentSearchItem.click()
+
+        return ListOfProductsScreen()
+    }
 
     @Step("Open 'Yet' button")
     fun openYet(): YetScreen {

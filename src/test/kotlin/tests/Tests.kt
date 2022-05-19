@@ -140,4 +140,36 @@ class Tests : BaseTest() {
         //Check that message for deleting pop up is shown
         softAssert.assertEquals(message, "Ви дійсно хочете видалити список \"Test\" в якому 1 товар?")
     }
+
+    @Test
+    @Description("Verify that sort is working correctly")
+    fun checkThatFilterAndSortIsWorkingCorrectly() {
+        val listOfProductsScreen = HomeScreen()
+            .findProduct("iphone 13")
+
+        //Get product names
+        val cheapProduct = "Мобільний телефон Apple iPhone 13 mini 128 GB (PRODUCT) Red Офіційна гарантія"
+        val expensiveProduct = "Мобільний телефон Apple iPhone 13 Pro Max 1TB Gold Офіційна гарантія"
+
+        //Sort the products from cheap to expensive
+        val sort = listOfProductsScreen
+            .openSortPopUp()
+            .chooseFromCheapToExpensive()
+
+        //Get the price of product after sorting from cheap to expensive
+        val cheapProductPrice =
+            sort.getProductPrice(cheapProduct)
+
+        //Sort the products from expensive to cheap
+        val sortListOfProducts = sort
+            .openSortPopUp()
+            .chooseFromExpensiveToCheap()
+
+        //Get the price of product after sorting from expensive to cheap
+        val expensiveProductPrice = sortListOfProducts
+            .getProductPrice(expensiveProduct)
+
+        //Check that the price of first product after sorting from cheap to expensive is less that the price of first element after sorting from expensive to cheap
+        softAssert.assertTrue(cheapProductPrice < expensiveProductPrice)
+    }
 }
