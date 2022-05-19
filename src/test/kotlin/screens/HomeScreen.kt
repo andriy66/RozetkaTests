@@ -16,11 +16,7 @@ class HomeScreen : BaseScreen() {
     @Step("Fill data in field 'Search'")
     fun findProduct(text: String): ListOfProductsScreen {
         searchField.click()
-        val presentSearchItem = findElementByText(text).shouldBe(Condition.visible)
-        if (!presentSearchItem.isDisplayed) {
-            throw Exception("The product isn`t in list")
-        }
-        presentSearchItem.click()
+        findElementByText(text).shouldBe(Condition.visible).click()
 
         return ListOfProductsScreen()
     }
