@@ -1,9 +1,9 @@
 package screens
 
+import com.codeborne.selenide.Condition
 import helpers.BaseScreen
 import io.qameta.allure.Step
 import popups.SortPopUp
-import java.lang.Thread.sleep
 
 open class ListOfProductsScreen : BaseScreen() {
     private val wishListScreen = findById("graph_wishlists")
@@ -14,10 +14,9 @@ open class ListOfProductsScreen : BaseScreen() {
 
     @Step("Open Product Description")
     fun openProductDescription(productName: String): ProductDescriptionScreen {
-        customWait()
-        val product = findElementByText(productName)
-        if(!product.isDisplayed){
-           throw Exception("The product isn`t exist")
+        val product = findElementByText(productName).should(Condition.visible)
+        if (!product.isDisplayed) {
+            throw Exception("The product isn`t exist")
         }
         product.click()
 
