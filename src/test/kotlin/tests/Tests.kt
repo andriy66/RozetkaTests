@@ -170,6 +170,6 @@ class Tests : BaseTest() {
             .getProductPrice(expensiveProduct)
 
         //Check that the price of first product after sorting from cheap to expensive is less that the price of first element after sorting from expensive to cheap
-        softAssert.assertTrue(cheapProductPrice < expensiveProductPrice)
+        Assert.assertTrue(cheapProductPrice < expensiveProductPrice)
     }
 }
