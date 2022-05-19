@@ -1,5 +1,6 @@
 package screens
 
+import com.codeborne.selenide.Condition
 import helpers.BaseScreen
 import io.qameta.allure.Step
 import popups.SortPopUp
@@ -13,9 +14,9 @@ open class ListOfProductsScreen : BaseScreen() {
 
     @Step("Open Product Description")
     fun openProductDescription(productName: String): ProductDescriptionScreen {
-        val product = findElementByText(productName)
-        if(!product.isDisplayed){
-           throw Exception("The product isn`t exist")
+        val product = findElementByText(productName).should(Condition.visible)
+        if (!product.isDisplayed) {
+            throw Exception("The product isn`t exist")
         }
         product.click()
 
@@ -25,10 +26,16 @@ open class ListOfProductsScreen : BaseScreen() {
     @Step("Get product price")
     fun getProductPrice(text: String): Int {
         val productDescription = openProductDescription(text)
-        val price = productDescription.priceLabel.text.filter { !it.isWhitespace() }
-        productDescription.getBack()
+        try {
+            val price = productDescription.priceLabel.text.filter { !it.isWhitespace() }
+            productDescription.getBack()
 
-        return price.toInt()
+            return price.toInt()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return Int.MIN_VALUE
     }
 
     @Step("Open Wish List")

@@ -15,8 +15,10 @@ import org.openqa.selenium.interactions.Sequence
 import java.time.Duration
 
 open class BaseScreen {
-    fun findById(id: String): SelenideElement {
-        return `$`(By.id("ua.com.rozetka.shop:id/$id"))
+    val androidPrefix = "android:id/"
+
+    fun findById(id: String, prefix: String = "ua.com.rozetka.shop:id/"): SelenideElement {
+        return `$`(By.id(prefix + id))
     }
 
     fun findByXpath(xpath: String): SelenideElement {

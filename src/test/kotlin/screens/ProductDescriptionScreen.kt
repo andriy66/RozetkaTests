@@ -27,6 +27,14 @@ class ProductDescriptionScreen : BaseScreen() {
         return CartScreen()
     }
 
+    @Step("Add to Wish List")
+    fun addToWishList(): ProductDescriptionScreen {
+        scroll()
+        wishButton.click()
+
+        return this
+    }
+
     @Step("Click the 'Wish' Button")
     fun openWishList(): WishListScreen {
         wishButton.click()

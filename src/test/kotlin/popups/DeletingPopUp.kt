@@ -6,9 +6,9 @@ import io.qameta.allure.Step
 import org.openqa.selenium.By
 
 class DeletingPopUp : BaseScreen() {
-    val message = `$`(By.id("android:id/message"))
-    val deleteButton = `$`(By.id("android:id/button1"))
-    val cancelButton = `$`(By.id("android:id/button2"))
+    val message = findById("message", androidPrefix)
+    private val deleteButton = findById("button1", androidPrefix)
+    private val cancelButton = findById("button2", androidPrefix)
 
     @Step("Click delete")
     fun clickDelete() {
