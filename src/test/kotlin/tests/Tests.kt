@@ -210,4 +210,52 @@ class Tests : BaseTest() {
         message = clearData.message.text
         Assert.assertEquals(message, "Ви ще не переглядали товари")
     }
+
+    @Test
+    @Description("Verify that customer can add the products for comparison")
+    fun verifyThatCustomerCanAddTheProductsForComparison() {
+        val catalogScreen = HomeScreen()
+            .openCatalog()
+
+        //Choose the category 'Gamers Product'
+        val gamerProducts = catalogScreen.openCategoryGamersProducts()
+
+        //Get products name
+        val firstProductName = "Ігрова консоль XoKo Hey Boy Червона (XOKO Нb-RD)"
+        val secondProductName = "Ігрова консоль XoKo Hey Boy Чорна (XOKO Нb-BK)"
+
+        //Open the Sub Category
+        val listOfProducts = gamerProducts.openGameConsolesListOfProducts()
+
+        //Add first product to Comparison
+        val firstProduct =
+            listOfProducts.openProductDescription(firstProductName)
+            .addToComparison()
+            .getBack()
+
+        //Add second product to Comparison
+        val secondProduct = firstProduct.openProductDescription(secondProductName)
+            .addToComparison()
+            .getBack()
+
+        //Open Comparison
+        val comparisonScreen = secondProduct.openYet()
+            .openComparisonScreen()
+            .openComparisonList()
+
+        //Check difference
+        val difference = comparisonScreen.clickDifference()
+        val firstProductProp = difference.isProperDisplayed("Червоний")
+        val secondProductProp = difference.isProperDisplayed("Чорний")
+        Assert.assertEquals(firstProductProp, secondProductProp, "The properties are displayed")
+
+        //Delete list
+        val deleteList = difference
+            .getBack()
+            .deleteComparisonList()
+        val messageOfDeleting = deleteList.message.text
+
+        //Check that list was deleted
+        Assert.assertEquals(messageOfDeleting, "Немає товарів в порівнянні", "The list was`t deleted")
+    }
 }
