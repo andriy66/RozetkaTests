@@ -172,4 +172,42 @@ class Tests : BaseTest() {
         //Check that the price of first product after sorting from cheap to expensive is less that the price of first element after sorting from expensive to cheap
         softAssert.assertTrue(cheapProductPrice < expensiveProductPrice)
     }
+
+    @Test
+    @Description("Verify that after searching the product is adding to 'Переглянуті товари'")
+    fun checkThatAfterSearchingProdAddToViewScreen() {
+        val productName = "Мобільний телефон Apple iPhone 13 Pro Max 128 GB Gold Офіційна гарантія"
+
+        //Delete data in Watched List if it exists
+        val clearData = HomeScreen()
+            .openYet()
+            .openWatchedScreen()
+            .clearWatchedData()
+
+        //Check that data from Watched List is empty
+        var message = clearData.message.text
+        Assert.assertEquals(message, "Ви ще не переглядали товари")
+
+        //Find the product
+        val listOfProduct = clearData
+            .openHomeScreen()
+            .findProduct("iphone 13")
+
+        //Get product description and open the Watch Screen
+        val watchedScreen = listOfProduct.openProductDescription(productName)
+            .getBack()
+            .openHomeScreen()
+            .openWatchScreen()
+
+        //Check that product is in Watched List
+        val productFromWatchedList = watchedScreen.getProductFromWatchedList(productName)
+        Assert.assertTrue(productFromWatchedList.isDisplayed)
+
+        //Clear all data
+        watchedScreen.clearWatchedData()
+
+        //Check that data was deleted
+        message = clearData.message.text
+        Assert.assertEquals(message, "Ви ще не переглядали товари")
+    }
 }

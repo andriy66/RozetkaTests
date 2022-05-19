@@ -11,6 +11,7 @@ class HomeScreen : BaseScreen() {
     private val cartButton = findById("graph_cart")
     private val catalogButton = findById("graph_fatMenu")
     private val homeButton = findById("graph_home")
+    private val watchedScreen = findById("main_carousel_tv_recent_all")
 
     @Step("Fill data in field 'Search'")
     fun findProduct(text: String): ListOfProductsScreen {
@@ -50,5 +51,12 @@ class HomeScreen : BaseScreen() {
         catalogButton.click()
 
         return CatalogScreen()
+    }
+
+    @Step("Open Watch Screen")
+    fun openWatchScreen(): WatchedScreen {
+        watchedScreen.click()
+
+        return WatchedScreen()
     }
 }
