@@ -6,8 +6,9 @@ import popups.CartItemMenuPopUp
 
 open class CartScreen : BaseScreen() {
     val monitor = findById("item_cart_offer_tv_title")
-    val itemMenu = findById("item_cart_offer_iv_menu")
-    val cart = findById("empty_base_tv_title")
+    private val itemMenu = findById("item_cart_offer_iv_menu")
+    private val cart = findById("empty_base_tv_title")
+    private val buyButton = findById("cart_fab_checkout")
 
     @Step("Open Item Menu")
     fun openItemMenu(): CartItemMenuPopUp {
@@ -21,5 +22,12 @@ open class CartScreen : BaseScreen() {
             return true
         }
         return false
+    }
+
+    @Step("But product")
+    fun clickBuyButton(): OrderingScreen {
+        buyButton.click()
+
+        return OrderingScreen()
     }
 }
