@@ -50,4 +50,12 @@ class ProductDescriptionScreen : BaseScreen() {
 
         return ListOfProductsScreen()
     }
+
+    @Step("Add to Comparison")
+    fun addToComparison(): ProductDescriptionScreen {
+        scroll()
+        comparison.click()
+
+        return this
+    }
 }
