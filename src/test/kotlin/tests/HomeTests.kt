@@ -1,146 +1,13 @@
 package tests
 
+import helpers.BaseTest
 import io.qameta.allure.Description
 import org.testng.Assert
-import helpers.Properties
-import helpers.BaseTest
 import org.testng.annotations.Test
 import screens.HomeScreen
+import screens.PremiumSubscribeScreen
 
-class Tests : BaseTest() {
-    @Test
-    @Description("Verify that you can log in with valid data")
-    fun verifyThatCantLogInWithValidDataAndCanLogInWithValid() {
-        val yetScreen = HomeScreen().openYet()
-
-        //Check that Yet Screen components are displayed
-        softAssert.assertTrue(yetScreen.rozetkaLogoImage.isDisplayed, "The 'Rozetka Logo' image isn`t displayed")
-        Assert.assertTrue(yetScreen.signInButton.isDisplayed, "The 'Sign In' button isn`t displayed")
-
-        //Get valid data
-        val validEmail = Properties.getProperty("email")
-        val validPassword = Properties.getProperty("password")
-
-        //Authorize and check that the user login
-        val authorizeProfile = yetScreen.openAuthorizeScreen()
-            .authorize(validEmail, validPassword)
-        softAssert.assertTrue(authorizeProfile.rozetkaLogoIcon.isDisplayed, "The 'Rozetka Logo' icon is displayed")
-        Assert.assertEquals(authorizeProfile.profileOwnerNameButton.text, "Лютак Андрій", "Invalid login")
-    }
-
-    @Test
-    @Description("Verify that customer can add the product to the cart")
-    fun verifyThatYouCanAddProductToTheCart() {
-        val catalogScreen = HomeScreen()
-            .openCatalog()
-
-        //Open list of products
-        val chooseTheSubCategory = catalogScreen
-            .openCategoryLaptopsAndComputersSubCategoryScreen()
-            .openListOfProducts()
-
-        //Check that List of Products Screen opened
-        softAssert.assertTrue(chooseTheSubCategory.sortButton.isDisplayed, "Button 'Sort' isn`t displayed")
-        softAssert.assertTrue(chooseTheSubCategory.filterButton.isDisplayed, "Button 'Filter' isn`t displayed")
-
-        //Get monitor name
-        val monitorName = "Монітор 27\" Dell S2722DC (210-BBRR) 75Hz/8-bit/USB Type-C Power Delivery 65W"
-
-        //Open monitor description
-        val monitorDescription = chooseTheSubCategory
-            .openProductDescription(monitorName)
-
-        //Adding the product to the cart
-        val cartScreen = monitorDescription
-            .addToCart()
-            .openCart()
-
-        //Get product from cart
-        val product = cartScreen.monitor
-
-        //Check that product is in the cart
-        Assert.assertEquals(product.text, monitorName, "Product isn`t in cart")
-
-        //Remove product from Cart
-        val removeFromCart = cartScreen
-            .openItemMenu()
-            .removeFromCart()
-
-        //Check that product has been deleted
-        Assert.assertTrue(removeFromCart.emptyCart(), "Product had`t been deleted")
-    }
-
-    @Test
-    @Description("Verify that you can add the product to the Wish List")
-    fun verifyThatCustomerCanAddProductToLikedList() {
-        val chooseTheSubCategory = HomeScreen()
-            .openCatalog()
-            .openCategoryLaptopsAndComputersSubCategoryScreen()
-            .openListOfProducts()
-
-        //Get monitor name
-        val monitorName = "Монітор 27\" Dell S2722DC (210-BBRR) 75Hz/8-bit/USB Type-C Power Delivery 65W"
-
-        //Open monitor description
-        val monitorDescription = chooseTheSubCategory
-            .openProductDescription(monitorName)
-
-        //Adding Monitor to the Wish List
-        val addMonitor = monitorDescription
-            .addToWishList()
-            .openWishList()
-
-        //Get monitor
-        val monitor = addMonitor.getMonitorFromWishList()
-
-        //Check that monitor is in Wish List
-        Assert.assertEquals(monitor.text, monitorName, "The product isn`t in the Wish List")
-
-        //Relocate the monitor and create list
-        val createWishList = addMonitor
-            .openItemMenu()
-            .clickRelocateProduct()
-            .createWishList()
-
-        //Check that Wish List is unchecked
-        val isDefaultWishList = createWishList.makeDefaultWishListCheckBox.isSelected
-        softAssert.assertFalse(isDefaultWishList, "It is default Wish List")
-
-        //Create new Wish List
-        val wishListName = "Test"
-        createWishList.fillInWishListName(wishListName)
-        val emptyWishList = createWishList.clickCreateWishList()
-
-        //Check that Wish List is empty
-        Assert.assertTrue(emptyWishList.wishListIsEmpty(), "Wish List isn`t empty")
-
-        //Go to the List of Products
-        val listOfProductsScreen = emptyWishList
-            .getBackToProductDescription()
-            .getBack()
-
-        //Open Wish Lists
-        val wishLists = listOfProductsScreen.openWishLists()
-
-        //Open Wish List
-        val testWishScreen = wishLists.openWishList()
-        val monitorInTestWishList = testWishScreen.getMonitorFromWishList()
-
-        //Check that monitor is in Test Wish List
-        Assert.assertEquals(monitorInTestWishList.text, monitorName, "The product isn`t in the Wish List")
-
-        //Deleting Wish List
-        val deleteFromWishLists = testWishScreen
-            .getBackToWishLists()
-            .openWishListMenu()
-            .deleteWishList()
-        val message = deleteFromWishLists.message.text
-        deleteFromWishLists.clickDelete()
-
-        //Check that message for deleting pop up is shown
-        softAssert.assertEquals(message, "Ви дійсно хочете видалити список \"Test\" в якому 1 товар?")
-    }
-
+class HomeTests : BaseTest() {
     @Test
     @Description("Verify that sort is working correctly")
     fun checkThatFilterAndSortIsWorkingCorrectly() {
@@ -242,9 +109,10 @@ class Tests : BaseTest() {
         val comparisonScreen = secondProduct.openYet()
             .openComparisonScreen()
             .openComparisonList()
+        comparisonScreen.clickDifference()
 
         //Check difference
-        val difference = comparisonScreen.clickDifference()
+        val difference = comparisonScreen
         val firstProductProp = difference.isProperDisplayed("Червоний")
         val secondProductProp = difference.isProperDisplayed("Чорний")
         Assert.assertEquals(firstProductProp, secondProductProp, "The properties are displayed")
@@ -302,5 +170,61 @@ class Tests : BaseTest() {
         //Check that product has been deleted
         val cartIsEmpty = deleteProductFromCart.emptyCart()
         Assert.assertTrue(cartIsEmpty, "Product had`t been deleted")
+    }
+
+    @Test
+    @Description("Verify that customer can get premium subscribe")
+    fun verifyThatCustomerCanGetPremiumSubscribe() {
+        val yetScreen = HomeScreen()
+            .openYet()
+
+        //Check that yet screen is shown
+        val profileOwnerName = yetScreen.profileNameButton.text
+        val expectedName = "Лютак Андрій"
+        softAssert.assertEquals(profileOwnerName, expectedName, "Another user authorized")
+
+        //Go to Premium Subscribe screen
+        val premiumSubscribe = yetScreen
+            .openPremiumSubscribeScreen()
+
+        //Get actual price information result
+        val novaPoshtaActual = premiumSubscribe.getDeliveryPriceInfo(PremiumSubscribeScreen.Delivery.NOVA_POSHTA)
+        val ukrPoshtaActual = premiumSubscribe.getDeliveryPriceInfo(PremiumSubscribeScreen.Delivery.UKR_POSHTA)
+        val justinActual = premiumSubscribe.getDeliveryPriceInfo(PremiumSubscribeScreen.Delivery.JUSTIN)
+        val meestActual = premiumSubscribe.getDeliveryPriceInfo(PremiumSubscribeScreen.Delivery.MEEST)
+        val courierActual = premiumSubscribe.getDeliveryPriceInfo(PremiumSubscribeScreen.Delivery.COURIER)
+
+        //GetExpected result
+        val novaPoshtaExpected = "від 55 ₴"
+        val ukrPoshtaExpected = "від 24 ₴"
+        val justinExpected = "від 33 ₴"
+        val meestExpected = "від 23 ₴"
+        val courierExpected = "від 59 ₴"
+
+        //Check that price info is correct
+        softAssert.assertEquals(novaPoshtaActual, novaPoshtaExpected, "The nova poshta price info isn`t same")
+        softAssert.assertEquals(ukrPoshtaActual, ukrPoshtaExpected, "The ukr poshta price info isn`t same")
+        softAssert.assertEquals(justinActual, justinExpected, "The justin price info isn`t same")
+        softAssert.assertEquals(meestActual, meestExpected, "The meest express price info isn`t same")
+        softAssert.assertEquals(courierActual, courierExpected, "The courier price info isn`t same")
+
+        //Get info about sales
+        val salesPopUp = premiumSubscribe
+            .clickSalesButton()
+
+        //Open available with premium subscribe
+        val availWithSub = salesPopUp
+            .clickAvailWithPremiumSub()
+
+        //Open choose the premium screen
+        val premiumScreen = availWithSub
+            .closePremiumInfoPopUpAndGetBack()
+
+        //Check that choose premium screen is shown
+        premiumScreen.chooseThePremiumSubscribe()
+        Assert.assertFalse(
+            premiumScreen.chooseThePremiumSubButton.isDisplayed,
+            "Choose the premium screen isn`t displayed"
+        )
     }
 }

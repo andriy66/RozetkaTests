@@ -8,10 +8,8 @@ class ComparisonScreen : BaseScreen() {
     private val getBackButton = findByXpath("//*[@content-desc='Перейти вгору']")
 
     @Step("Click difference button")
-    fun clickDifference(): ComparisonScreen {
+    fun clickDifference() {
         differenceButton.click()
-
-        return this
     }
 
     @Step("Is proper displayed")

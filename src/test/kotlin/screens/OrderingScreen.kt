@@ -13,11 +13,8 @@ class OrderingScreen : BaseScreen() {
     fun isCustomerNameDisplayed(name: String): Boolean {
         orderLayout.shouldBe(Condition.visible)
         scroll()
-        if (customerName.text == name) {
-            return true
-        }
 
-        return false
+        return customerName.text == name
     }
 
     @Step("Get back")
