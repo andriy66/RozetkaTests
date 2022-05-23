@@ -2,15 +2,18 @@ package popups
 
 import helpers.BaseScreen
 import io.qameta.allure.Step
+import screens.PremiumSubscribeScreen
 
 class PremiumInfoPopUp : BaseScreen() {
-    val message = findById("message", androidPrefix)
     private val closeButton = findById("button1", androidPrefix)
+    private val getBackButton = findByXpath("//*[@content-desc='Перейти вгору']")
+    val message = findById("message", androidPrefix)
 
-    @Step("Close the pop up")
-    fun closePremiumInfoPopUp(): SalesPopUp {
+    @Step("Close the pop up and get back")
+    fun closePremiumInfoPopUpAndGetBack(): PremiumSubscribeScreen {
         closeButton.click()
+        getBackButton.click()
 
-        return SalesPopUp()
+        return PremiumSubscribeScreen()
     }
 }
