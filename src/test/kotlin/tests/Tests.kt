@@ -6,6 +6,7 @@ import helpers.Properties
 import helpers.BaseTest
 import org.testng.annotations.Test
 import screens.HomeScreen
+import screens.PremiumSubscribeScreen.Delivery
 
 class Tests : BaseTest() {
     @Test
@@ -302,5 +303,62 @@ class Tests : BaseTest() {
         //Check that product has been deleted
         val cartIsEmpty = deleteProductFromCart.emptyCart()
         Assert.assertTrue(cartIsEmpty, "Product had`t been deleted")
+    }
+
+    @Test
+    @Description("Verify that customer can get premium subscribe")
+    fun verifyThatCustomerCanGetPremiumSubscribe() {
+        val yetScreen = HomeScreen()
+            .openYet()
+
+        //Check that yet screen is shown
+        val profileOwnerName = yetScreen.profileNameButton.text
+        val expectedName = "Лютак Андрій"
+        softAssert.assertEquals(profileOwnerName, expectedName, "Another user authorized")
+
+        //Go to Premium Subscribe screen
+        val premiumSubscribe = yetScreen
+            .openPremiumSubscribeScreen()
+
+        //Get actual price information result
+        val novaPoshtaActual = premiumSubscribe.getDeliveryPriceInfo(Delivery.NOVA_POSHTA)
+        val ukrPoshtaActual = premiumSubscribe.getDeliveryPriceInfo(Delivery.UKR_POSHTA)
+        val justinActual = premiumSubscribe.getDeliveryPriceInfo(Delivery.JUSTIN)
+        val meestActual = premiumSubscribe.getDeliveryPriceInfo(Delivery.MEEST)
+        val courierActual = premiumSubscribe.getDeliveryPriceInfo(Delivery.COURIER)
+
+        //GetExpected result
+        val novaPoshtaExpected = "від 55 ₴"
+        val ukrPoshtaExpected = "від 24 ₴"
+        val justinExpected = "від 33 ₴"
+        val meestExpected = "від 23 ₴"
+        val courierExpected = "від 59 ₴"
+
+        //Check that price info is correct
+        softAssert.assertEquals(novaPoshtaActual, novaPoshtaExpected, "The nova poshta price info isn`t same")
+        softAssert.assertEquals(ukrPoshtaActual, ukrPoshtaExpected, "The ukr poshta price info isn`t same")
+        softAssert.assertEquals(justinActual, justinExpected, "The justin price info isn`t same")
+        softAssert.assertEquals(meestActual, meestExpected, "The meest express price info isn`t same")
+        softAssert.assertEquals(courierActual, courierExpected, "The courier price info isn`t same")
+
+        //Get info about sales
+        val salesPopUp = premiumSubscribe
+            .clickSalesButton()
+
+        //Open available with premium subscribe
+        val availWithSub = salesPopUp
+            .clickAvailWithPremiumSub()
+
+        //Open choose the premium screen
+        val premiumScreen = availWithSub
+            .closePremiumInfoPopUp()
+            .getBack()
+
+        //Check that choose premium screen is shown
+        premiumScreen.chooseThePremiumSubscribe()
+        Assert.assertFalse(
+            premiumScreen.chooseThePremiumSubButton.isDisplayed,
+            "Choose the premium screen isn`t displayed"
+        )
     }
 }

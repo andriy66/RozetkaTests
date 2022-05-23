@@ -17,6 +17,7 @@ class YetScreen : BaseScreen() {
     val comparisonButton = findElementByText("Порівняння")
     val watchedButton = findElementByText("Переглянуті")
     val salesButton = findElementByText("Знижки")
+    val profileNameButton = findById("item_menu_profile_tv_name")
 
     @Step("Open Authorize Screen")
     fun openAuthorizeScreen(): AuthorizeScreen {
@@ -38,5 +39,12 @@ class YetScreen : BaseScreen() {
         comparisonButton.click()
 
         return ListOfComparisonScreen()
+    }
+
+    @Step("Open Premium Subscribe screen")
+    fun openPremiumSubscribeScreen(): PremiumSubscribeScreen {
+        premiumSubscribeButton.click()
+
+        return PremiumSubscribeScreen()
     }
 }
