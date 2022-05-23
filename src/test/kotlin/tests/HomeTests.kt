@@ -109,9 +109,10 @@ class HomeTests : BaseTest() {
         val comparisonScreen = secondProduct.openYet()
             .openComparisonScreen()
             .openComparisonList()
+        comparisonScreen.clickDifference()
 
         //Check difference
-        val difference = comparisonScreen.clickDifference()
+        val difference = comparisonScreen
         val firstProductProp = difference.isProperDisplayed("Червоний")
         val secondProductProp = difference.isProperDisplayed("Чорний")
         Assert.assertEquals(firstProductProp, secondProductProp, "The properties are displayed")
