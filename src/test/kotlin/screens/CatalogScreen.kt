@@ -4,12 +4,14 @@ import helpers.BaseScreen
 import io.qameta.allure.Step
 import screens.categories.GamerSubCategoryScreen
 import screens.categories.LaptopsSubCategoryScreen
+import screens.categories.PhonesSubcategoryScreen
 import screens.categories.ZooProductsSubCategoryScreen
 
 class CatalogScreen : BaseScreen() {
     private val categoryLaptopsAndComputersButton = findElementByText("Ноутбуки та комп’ютери")
     private val categoryZooProductsButton = findElementByText("Зоотовари")
     private val categoryGamerButton = findElementByText("Товари для геймерів")
+    private val categoryPhonesButton = findElementByText("Смартфони, ТВ і електроніка")
 
     @Step("Open Category 'Товари для геймерів'")
     fun openCategoryGamersProducts(): GamerSubCategoryScreen {
@@ -30,5 +32,12 @@ class CatalogScreen : BaseScreen() {
         categoryZooProductsButton.click()
 
         return ZooProductsSubCategoryScreen()
+    }
+
+    @Step("Open Category 'Смартфони, ТВ і електроніка'")
+    fun openPhonesSubCategoryScreen(): PhonesSubcategoryScreen {
+        categoryPhonesButton.click()
+
+        return PhonesSubcategoryScreen()
     }
 }

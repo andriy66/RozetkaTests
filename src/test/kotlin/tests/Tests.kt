@@ -112,7 +112,7 @@ class Tests : BaseTest() {
         val emptyWishList = createWishList.clickCreateWishList()
 
         //Check that Wish List is empty
-        Assert.assertTrue(emptyWishList.wishListIsEmpty(),  "Wish List isn`t empty")
+        Assert.assertTrue(emptyWishList.wishListIsEmpty(), "Wish List isn`t empty")
 
         //Go to the List of Products
         val listOfProductsScreen = emptyWishList
@@ -230,8 +230,8 @@ class Tests : BaseTest() {
         //Add first product to Comparison
         val firstProduct =
             listOfProducts.openProductDescription(firstProductName)
-            .addToComparison()
-            .getBack()
+                .addToComparison()
+                .getBack()
 
         //Add second product to Comparison
         val secondProduct = firstProduct.openProductDescription(secondProductName)
@@ -257,5 +257,50 @@ class Tests : BaseTest() {
 
         //Check that list was deleted
         Assert.assertEquals(messageOfDeleting, "Немає товарів в порівнянні", "The list was`t deleted")
+    }
+
+    @Test
+    @Description("Verify that customer can buy product")
+    fun verifyThatCustomerCanBuyProduct() {
+        val phonesSubCategoryScreen = HomeScreen()
+            .openCatalog()
+            .openPhonesSubCategoryScreen()
+
+        //Check that phones sub category opened
+        val phonesSubcategoryScreenIsOpened = phonesSubCategoryScreen.phonesSubcategoryScreenOpened()
+        Assert.assertTrue(phonesSubcategoryScreenIsOpened, "Phones Subcategory Screen isn`t displayed")
+
+        //Open Description Screen
+        val descriptionScreen = phonesSubCategoryScreen
+            .openSubCategoryAdaptors()
+            .openFirstProductScreen()
+
+        //Get price of product
+        val productPrice = descriptionScreen.priceLabel.text
+
+        //Add first product to cart and open cart
+        val cartScreen = descriptionScreen
+            .addToCart()
+            .openCart()
+
+        //Buy product from cart
+        val buyProduct = cartScreen
+            .clickBuyButton()
+
+        //Check that customer who order it is same and price same
+        val actualPrice = buyProduct.priceLayout.text
+        val customerIsSame = buyProduct.isCustomerNameDisplayed("Лютак Андрій")
+        Assert.assertTrue(customerIsSame, "Customer isn`t same")
+        Assert.assertEquals(actualPrice, productPrice, "The prise aren`t same")
+
+        //Delete product from cart
+        val deleteProductFromCart = buyProduct
+            .getBack()
+            .openItemMenu()
+            .removeFromCart()
+
+        //Check that product has been deleted
+        val cartIsEmpty = deleteProductFromCart.emptyCart()
+        Assert.assertTrue(cartIsEmpty, "Product had`t been deleted")
     }
 }
