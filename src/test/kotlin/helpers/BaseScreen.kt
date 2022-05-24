@@ -16,6 +16,7 @@ import java.time.Duration
 
 open class BaseScreen {
     val androidPrefix = "android:id/"
+    val loaderIcon = findById("loader_icon")
 
     fun findById(id: String, prefix: String = "ua.com.rozetka.shop:id/"): SelenideElement {
         return `$`(By.id(prefix + id))

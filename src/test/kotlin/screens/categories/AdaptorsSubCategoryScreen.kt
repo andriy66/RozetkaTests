@@ -8,7 +8,7 @@ class AdaptorsSubCategoryScreen : BaseScreen() {
     private val secondProductButton = findElementsByCssSelector("android.view.ViewGroup")[0]
 
     @Step("Open first product Description")
-    fun openFirstProductScreen(): ProductDescriptionScreen {
+    fun openSecondProductScreen(): ProductDescriptionScreen {
         secondProductButton.click()
 
         return ProductDescriptionScreen()

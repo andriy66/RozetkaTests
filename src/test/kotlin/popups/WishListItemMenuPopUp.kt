@@ -2,6 +2,7 @@ package popups
 
 import helpers.BaseScreen
 import io.qameta.allure.Step
+import screens.WishListScreen
 
 class WishListItemMenuPopUp : BaseScreen() {
     private val relocateProductButton = findElementByText("Перемістити товар")
@@ -15,7 +16,9 @@ class WishListItemMenuPopUp : BaseScreen() {
     }
 
     @Step("Delete product from Wish List")
-    fun deleteProductFromWishList() {
+    fun deleteProductFromWishList(): WishListScreen {
         deleteProductFromWishListButton.click()
+
+        return WishListScreen()
     }
 }

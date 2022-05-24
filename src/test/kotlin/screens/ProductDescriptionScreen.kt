@@ -10,7 +10,6 @@ class ProductDescriptionScreen : BaseScreen() {
     private val wishButton = findById("bottom_bar_iv_wish_image")
     private val comparison = findById("bottom_bar_iv_compare_image")
     private val getBackButton = findByXpath("//*[@content-desc='Перейти вгору']")
-    private val attribute = findById("offer_var_detail_variant_value_tv_text")
     val priceLabel = findById("view_price_tv_price")
 
     @Step("Add to the Cart")
@@ -28,11 +27,9 @@ class ProductDescriptionScreen : BaseScreen() {
     }
 
     @Step("Add to Wish List")
-    fun addToWishList(): ProductDescriptionScreen {
+    fun addToWishList() {
         scroll()
         wishButton.click()
-
-        return this
     }
 
     @Step("Click the 'Wish' Button")
