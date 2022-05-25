@@ -11,7 +11,7 @@ import screens.PremiumSubscribeScreen
 class HomeTests : BaseTest() {
     @Test
     @Description("Verify that sort is working correctly")
-    fun checkThatFilterAndSortIsWorkingCorrectly() {
+    fun checkThatSortIsWorkingCorrectly() {
         val listOfProductsScreen = HomeScreen()
             .findProduct("iphone 13")
 
@@ -23,7 +23,7 @@ class HomeTests : BaseTest() {
         //Get the price of product after sorting from cheap to expensive
         val openProdDesc = sort
             .openFirstProductScreen()
-        val cheapProductPrice = toInt(openProdDesc.priceLabel.text.replace(" ",""))
+        val cheapProductPrice = toInt(openProdDesc.priceLabel.text.replace(" ", ""))
         openProdDesc.getBack()
 
         //Sort the products from expensive to cheap
@@ -34,7 +34,7 @@ class HomeTests : BaseTest() {
         //Get the price of product after sorting from expensive to cheap
         val openExpenseProdDesc = sortListOfProducts
             .openFirstProductScreen()
-        val expensiveProductPrice = toInt(openExpenseProdDesc.priceLabel.text.replace(" ",""))
+        val expensiveProductPrice = toInt(openExpenseProdDesc.priceLabel.text.replace(" ", ""))
 
         //Check that the price of first product after sorting from cheap to expensive is less that the price of first element after sorting from expensive to cheap
         Assert.assertTrue(cheapProductPrice < expensiveProductPrice)
@@ -43,8 +43,6 @@ class HomeTests : BaseTest() {
     @Test
     @Description("Verify that after searching the product is adding to 'Переглянуті товари'")
     fun checkThatAfterSearchingProdAddToViewScreen() {
-        val productName = "Мобільний телефон Apple iPhone 13 Pro Max 128 GB Gold Офіційна гарантія"
-
         //Delete data in Watched List if it exists
         val clearData = HomeScreen()
             .openYet()
@@ -61,14 +59,15 @@ class HomeTests : BaseTest() {
             .findProduct("iphone 13")
 
         //Get product description and open the Watch Screen
-        val watchedScreen = listOfProduct.openProductDescription(productName)
-            .getBack()
+        val prodDesc = listOfProduct.openFirstProductScreen()
+        val productName = prodDesc.productName.text
+        val watchedScreen = prodDesc.getBack()
             .openHomeScreen()
             .openWatchScreen()
 
         //Check that product is in Watched List
-        val productFromWatchedList = watchedScreen.getProductFromWatchedList(productName)
-        Assert.assertTrue(productFromWatchedList.isDisplayed)
+        val productFromWatchedList = watchedScreen.productName.text
+        Assert.assertEquals(productFromWatchedList, productName, "There aren`t product in Watch List")
 
         //Clear all data
         watchedScreen.clearWatchedData()
