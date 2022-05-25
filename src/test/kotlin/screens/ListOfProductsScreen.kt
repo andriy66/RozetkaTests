@@ -9,8 +9,16 @@ open class ListOfProductsScreen : BaseScreen() {
     private val wishListScreen = findById("graph_wishlists")
     private val yetScreen = findById("graph_more")
     private val homeButton = findById("graph_home")
+    private val firstProductButton = findElementsByCssSelector("android.widget.TextView")[8]
     val filterButton = findById("section_ll_filter")
     val sortButton = findById("section_ll_sort")
+
+    @Step("Open first product Description")
+    fun openFirstProductScreen(): ProductDescriptionScreen {
+        firstProductButton.click()
+
+        return ProductDescriptionScreen()
+    }
 
     @Step("Open Product Description")
     fun openProductDescription(productName: String): ProductDescriptionScreen {

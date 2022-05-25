@@ -2,6 +2,7 @@ package tests
 
 import helpers.BaseTest
 import io.qameta.allure.Description
+import org.apache.commons.lang.math.NumberUtils.toInt
 import org.testng.Assert
 import org.testng.annotations.Test
 import screens.HomeScreen
@@ -14,18 +15,16 @@ class HomeTests : BaseTest() {
         val listOfProductsScreen = HomeScreen()
             .findProduct("iphone 13")
 
-        //Get product names
-        val cheapProduct = "Мобільний телефон Apple iPhone 13 mini 128 GB (PRODUCT) Red Офіційна гарантія"
-        val expensiveProduct = "Мобільний телефон Apple iPhone 13 Pro Max 1TB Gold Офіційна гарантія"
-
         //Sort the products from cheap to expensive
         val sort = listOfProductsScreen
             .openSortPopUp()
             .chooseFromCheapToExpensive()
 
         //Get the price of product after sorting from cheap to expensive
-        val cheapProductPrice =
-            sort.getProductPrice(cheapProduct)
+        val openProdDesc = sort
+            .openFirstProductScreen()
+        val cheapProductPrice = toInt(openProdDesc.priceLabel.text.replace(" ",""))
+        openProdDesc.getBack()
 
         //Sort the products from expensive to cheap
         val sortListOfProducts = sort
@@ -33,8 +32,9 @@ class HomeTests : BaseTest() {
             .chooseFromExpensiveToCheap()
 
         //Get the price of product after sorting from expensive to cheap
-        val expensiveProductPrice = sortListOfProducts
-            .getProductPrice(expensiveProduct)
+        val openExpenseProdDesc = sortListOfProducts
+            .openFirstProductScreen()
+        val expensiveProductPrice = toInt(openExpenseProdDesc.priceLabel.text.replace(" ",""))
 
         //Check that the price of first product after sorting from cheap to expensive is less that the price of first element after sorting from expensive to cheap
         Assert.assertTrue(cheapProductPrice < expensiveProductPrice)
