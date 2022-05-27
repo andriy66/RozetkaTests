@@ -47,7 +47,7 @@ class CartTests : BaseTest() {
             .removeFromCart()
 
         //Check that product has been deleted
-        Assert.assertTrue(removeFromCart.emptyCart(), "Product had`t been deleted")
+        softAssert.assertTrue(removeFromCart.emptyCart(), "Product had`t been deleted")
     }
 
     @Test
@@ -110,5 +110,38 @@ class CartTests : BaseTest() {
 
         //Check that product deleted from wish list
         softAssert.assertTrue(removeProductFromWishList.wishListIsEmpty(), "Product had`t been deleted from Wish List")
+    }
+
+    @Test
+    @Description("Verify that the customer can use fast buy")
+    fun verifyThatCustomerCanUseFastBuy() {
+        val listOfProductsScreen = HomeScreen()
+            .openCatalog()
+            .openPhonesSubCategoryScreen()
+            .openSubCategoryAdaptors()
+
+        //Choose second product and get the product price
+        val secondProdDesc = listOfProductsScreen
+            .openSecondProductScreen()
+        val priceOfProduct = toInt(secondProdDesc.priceLabel.text)
+
+        //Buy now
+        val buyNow = secondProdDesc
+            .buyNow()
+
+        //Increase the counts of product buy two and check that prices is equals
+        val actualPrice = toInt(buyNow.clickPlusAndGetOrderPrice().split(" ")[0])
+        Assert.assertEquals(actualPrice, priceOfProduct * 2, "The prices are equals")
+
+        //Get customer phone numbers
+        val expectedNumber = "+380 98 396-76-11"
+        val actualNumber = buyNow.phoneNumber.text
+        Assert.assertEquals(actualNumber, expectedNumber, "The phone numbers aren`t equals")
+
+        //Delete the product from cart
+        buyNow.getBack()
+        val removeProductFromCart = buyNow.openItemMenu()
+            .removeFromCart()
+        softAssert.assertTrue(removeProductFromCart.emptyCart(), "Product had`t been deleted from cart")
     }
 }

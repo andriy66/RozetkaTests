@@ -94,18 +94,17 @@ class HomeTests : BaseTest() {
         val listOfProducts = gamerProducts.openGameConsolesListOfProducts()
 
         //Add first product to Comparison
-        val firstProduct =
-            listOfProducts.openProductDescription(firstProductName)
-                .addToComparison()
-                .getBack()
+        val openDesc = listOfProducts.openProductDescription(firstProductName)
+        openDesc.addToComparison()
+        val listOfPro = openDesc.getBack()
 
         //Add second product to Comparison
-        val secondProduct = firstProduct.openProductDescription(secondProductName)
-            .addToComparison()
-            .getBack()
+        val secondProduct = listOfPro.openProductDescription(secondProductName)
+        secondProduct.addToComparison()
+        val listOfProp = secondProduct.getBack()
 
         //Open Comparison
-        val comparisonScreen = secondProduct.openYet()
+        val comparisonScreen = listOfProp.openYet()
             .openComparisonScreen()
             .openComparisonList()
         comparisonScreen.clickDifference()
