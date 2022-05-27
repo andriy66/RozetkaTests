@@ -91,7 +91,7 @@ class CartTests : BaseTest() {
 
         //Check that price multiplied
         val priceAfterMultiplying = cartScreen.buyButton.text.split(" ")[3]
-        Assert.assertEquals(toInt(priceAfterMultiplying), priceOfProd * 2)
+        softAssert.assertEquals(toInt(priceAfterMultiplying), priceOfProd * 2, "The price isn`t equal")
 
         //Remove product from Cart
         val removeFromCart = cartScreen
