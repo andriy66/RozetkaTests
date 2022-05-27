@@ -23,12 +23,11 @@ class WishListTests : BaseTest() {
             .openProductDescription(monitorName)
 
         //Adding Monitor to the Wish List
-        val addMonitor = monitorDescription
-            .addToWishList()
-            .openWishList()
+        monitorDescription.addToWishList()
+        val addMonitor = monitorDescription.openWishList()
 
         //Get monitor
-        val monitor = addMonitor.getMonitorFromWishList()
+        val monitor = addMonitor.monitor
 
         //Check that monitor is in Wish List
         Assert.assertEquals(monitor.text, monitorName, "The product isn`t in the Wish List")
@@ -61,7 +60,7 @@ class WishListTests : BaseTest() {
 
         //Open Wish List
         val testWishScreen = wishLists.openWishList()
-        val monitorInTestWishList = testWishScreen.getMonitorFromWishList()
+        val monitorInTestWishList = testWishScreen.monitor
 
         //Check that monitor is in Test Wish List
         Assert.assertEquals(monitorInTestWishList.text, monitorName, "The product isn`t in the Wish List")

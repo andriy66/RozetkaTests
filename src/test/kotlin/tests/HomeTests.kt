@@ -140,7 +140,7 @@ class HomeTests : BaseTest() {
         //Open Description Screen
         val descriptionScreen = phonesSubCategoryScreen
             .openSubCategoryAdaptors()
-            .openFirstProductScreen()
+            .openSecondProductScreen()
 
         //Get price of product
         val productPrice = descriptionScreen.priceLabel.text

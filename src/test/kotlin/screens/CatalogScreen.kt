@@ -1,5 +1,6 @@
 package screens
 
+import com.codeborne.selenide.Condition
 import helpers.BaseScreen
 import io.qameta.allure.Step
 import screens.categories.GamerSubCategoryScreen
@@ -36,6 +37,7 @@ class CatalogScreen : BaseScreen() {
 
     @Step("Open Category 'Смартфони, ТВ і електроніка'")
     fun openPhonesSubCategoryScreen(): PhonesSubcategoryScreen {
+        loaderIcon.shouldBe(Condition.not(Condition.visible))
         categoryPhonesButton.click()
 
         return PhonesSubcategoryScreen()

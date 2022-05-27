@@ -2,6 +2,7 @@ package tests
 
 import helpers.BaseTest
 import io.qameta.allure.Description
+import org.apache.commons.lang.math.NumberUtils.toInt
 import org.testng.Assert
 import org.testng.annotations.Test
 import screens.HomeScreen
@@ -47,5 +48,67 @@ class CartTests : BaseTest() {
 
         //Check that product has been deleted
         Assert.assertTrue(removeFromCart.emptyCart(), "Product had`t been deleted")
+    }
+
+    @Test
+    @Description("Verify that the customer can add the product from Wish List to Cart")
+    fun verifyThatCustomerCanAddProdFromWishListToCart() {
+        val listOfProductsScreen = HomeScreen()
+            .openCatalog()
+            .openPhonesSubCategoryScreen()
+            .openSubCategoryAdaptors()
+
+        //Choose second product
+        val secondProdDesc = listOfProductsScreen
+            .openSecondProductScreen()
+
+        //Add the product to Wish List
+        secondProdDesc.addToWishList()
+        val wishListsScreen = secondProdDesc
+            .openWishList()
+
+        //Check that product is one in Wish List
+        val availableProductsActual = wishListsScreen.availableProducts.text.trim()
+        val availableProductsExpected = "Доступно: 1 товар"
+        softAssert.assertEquals(
+            availableProductsActual,
+            availableProductsExpected,
+            "There is another counts of products in Wish List"
+        )
+
+        //Click button buy all and go to the cart
+        val prodDesc = wishListsScreen
+            .clickBuyAll()
+            .openProductDescription()
+
+        //Get previous price of product
+        val priceOfProd = toInt(prodDesc.priceLabel.text)
+
+        //Go to Cart screen again
+        val cartScreen = prodDesc
+            .openCart()
+        cartScreen.clickPlusButton()
+
+        //Check that price multiplied
+        val priceAfterMultiplying = cartScreen.buyButton.text.split(" ")[3]
+        softAssert.assertEquals(toInt(priceAfterMultiplying), priceOfProd * 2, "The price isn`t equal")
+
+        //Remove product from Cart
+        val removeFromCart = cartScreen
+            .openItemMenu()
+            .removeFromCart()
+
+        //Check that product has been deleted
+        Assert.assertTrue(removeFromCart.emptyCart(), "Product had`t been deleted from cart")
+
+        //Remove from wish list
+        val removeProductFromWishList = removeFromCart
+            .openWishLists()
+            .openWishList()
+            .openItemMenu()
+            .deleteProductFromWishList()
+
+        //Check that product deleted from wish list
+        softAssert.assertTrue(removeProductFromWishList.wishListIsEmpty(), "Product had`t been deleted from Wish List")
     }
 }
