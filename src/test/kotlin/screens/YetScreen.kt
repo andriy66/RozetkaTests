@@ -18,6 +18,7 @@ class YetScreen : BaseScreen() {
     val watchedButton = findElementByText("Переглянуті")
     val salesButton = findElementByText("Знижки")
     val profileNameButton = findById("item_menu_profile_tv_name")
+    val profileSettingsButton = findById("item_menu_profile_ll_profile")
 
     @Step("Open Authorize Screen")
     fun openAuthorizeScreen(): AuthorizeScreen {
@@ -46,5 +47,12 @@ class YetScreen : BaseScreen() {
         premiumSubscribeButton.click()
 
         return PremiumSubscribeScreen()
+    }
+
+    @Step("Open profile settings")
+    fun openProfileSettings(): ProfileSettingScreen {
+        profileSettingsButton.click()
+
+        return ProfileSettingScreen()
     }
 }

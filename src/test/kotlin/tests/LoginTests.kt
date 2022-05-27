@@ -12,9 +12,13 @@ class LoginTests : BaseTest()  {
     @Description("Verify that you can log in with valid data")
     fun verifyThatCantLogInWithValidDataAndCanLogInWithValid() {
         val yetScreen = HomeScreen().openYet()
+        if(yetScreen.profileSettingsButton.isDisplayed){
+                 yetScreen
+                .openProfileSettings()
+                .signOut()
+        }
 
         //Check that Yet Screen components are displayed
-        softAssert.assertTrue(yetScreen.rozetkaLogoImage.isDisplayed, "The 'Rozetka Logo' image isn`t displayed")
         Assert.assertTrue(yetScreen.signInButton.isDisplayed, "The 'Sign In' button isn`t displayed")
 
         //Get valid data
