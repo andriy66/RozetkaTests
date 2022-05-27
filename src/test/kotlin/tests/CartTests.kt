@@ -47,7 +47,7 @@ class CartTests : BaseTest() {
             .removeFromCart()
 
         //Check that product has been deleted
-        Assert.assertTrue(removeFromCart.emptyCart(), "Product had`t been deleted")
+        softAssert.assertTrue(removeFromCart.emptyCart(), "Product had`t been deleted")
     }
 
     @Test
@@ -109,7 +109,7 @@ class CartTests : BaseTest() {
             .deleteProductFromWishList()
 
         //Check that product deleted from wish list
-        Assert.assertTrue(removeProductFromWishList.wishListIsEmpty(), "Product had`t been deleted from Wish List")
+        softAssert.assertTrue(removeProductFromWishList.wishListIsEmpty(), "Product had`t been deleted from Wish List")
     }
 
     @Test
@@ -142,6 +142,6 @@ class CartTests : BaseTest() {
         buyNow.getBack()
         val removeProductFromCart = buyNow.openItemMenu()
             .removeFromCart()
-        Assert.assertTrue(removeProductFromCart.emptyCart(), "Product had`t been deleted from cart")
+        softAssert.assertTrue(removeProductFromCart.emptyCart(), "Product had`t been deleted from cart")
     }
 }
