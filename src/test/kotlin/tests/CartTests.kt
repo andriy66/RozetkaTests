@@ -91,7 +91,7 @@ class CartTests : BaseTest() {
 
         //Check that price multiplied
         val priceAfterMultiplying = cartScreen.buyButton.text.split(" ")[3]
-        Assert.assertEquals(toInt(priceAfterMultiplying), priceOfProd * 2)
+        softAssert.assertEquals(toInt(priceAfterMultiplying), priceOfProd * 2, "The price isn`t equal")
 
         //Remove product from Cart
         val removeFromCart = cartScreen
@@ -109,6 +109,6 @@ class CartTests : BaseTest() {
             .deleteProductFromWishList()
 
         //Check that product deleted from wish list
-        Assert.assertTrue(removeProductFromWishList.wishListIsEmpty(), "Product had`t been deleted from Wish List")
+        softAssert.assertTrue(removeProductFromWishList.wishListIsEmpty(), "Product had`t been deleted from Wish List")
     }
 }
