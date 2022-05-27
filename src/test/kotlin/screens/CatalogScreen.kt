@@ -1,14 +1,14 @@
 package screens
 
 import com.codeborne.selenide.Condition
-import helpers.BaseScreen
+import helpers.BaseScreenWithMenuComponents
 import io.qameta.allure.Step
 import screens.categories.GamerSubCategoryScreen
 import screens.categories.LaptopsSubCategoryScreen
 import screens.categories.PhonesSubcategoryScreen
 import screens.categories.ZooProductsSubCategoryScreen
 
-class CatalogScreen : BaseScreen() {
+class CatalogScreen : BaseScreenWithMenuComponents() {
     private val categoryLaptopsAndComputersButton = findElementByText("Ноутбуки та комп’ютери")
     private val categoryZooProductsButton = findElementByText("Зоотовари")
     private val categoryGamerButton = findElementByText("Товари для геймерів")

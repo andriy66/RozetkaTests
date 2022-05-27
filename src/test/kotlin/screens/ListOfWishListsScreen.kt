@@ -1,16 +1,25 @@
 package screens
 
-import helpers.BaseScreen
+import helpers.BaseScreenWithMenuComponents
 import io.qameta.allure.Step
 import popups.ListOfWishListsItemMenuPopUp
 
-open class ListOfWishListsScreen : BaseScreen() {
-    val listMenu = findByXpath("//*[@content-desc='Ще']")
-    val wishList = findById("item_wishlists_rv_offers")
+open class ListOfWishListsScreen : BaseScreenWithMenuComponents() {
+    private val listMenu = findByXpath("//*[@content-desc='Ще']")
+    private val wishList = findById("item_wishlists_rv_offers")
+    private val createWishListButton = findById("action_create_new_wishlist")
 
     @Step("Open Wish List")
     fun openWishList(): WishListScreen {
         wishList.click()
+
+        return WishListScreen()
+    }
+
+    @Step("Open custom wish list")
+    fun openCustomWishList(wishListName: String): WishListScreen {
+        val customWishList = findElementByText(wishListName)
+        customWishList.click()
 
         return WishListScreen()
     }
@@ -20,5 +29,20 @@ open class ListOfWishListsScreen : BaseScreen() {
         listMenu.click()
 
         return ListOfWishListsItemMenuPopUp()
+    }
+
+    @Step("Crete wish list with name")
+    fun createWishListWithName(wishListName: String) {
+        createWishListButton.click()
+        val wishListNameField = findById("wishlist_add_edit_et_title")
+        wishListNameField.sendKeys(wishListName)
+        val createButton = findById("wishlist_add_edit_v_save")
+        createButton.click()
+    }
+
+    fun wishListIsCreated(wishListName: String): Boolean {
+        val wishList = findElementByText(wishListName)
+
+        return wishList.isDisplayed
     }
 }

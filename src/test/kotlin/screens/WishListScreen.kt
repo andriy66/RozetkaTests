@@ -1,10 +1,10 @@
 package screens
 
-import helpers.BaseScreen
+import helpers.BaseScreenWithMenuComponents
 import io.qameta.allure.Step
 import popups.WishListItemMenuPopUp
 
-open class WishListScreen : BaseScreen() {
+open class WishListScreen : BaseScreenWithMenuComponents() {
     val monitor = findById("section_offer_tv_title")
     val availableProducts = findById("wishlist_tv_count")
     private val getBackButton = findByXpath("//*[@content-desc='Перейти вгору']")
@@ -43,4 +43,11 @@ open class WishListScreen : BaseScreen() {
 
         return CartScreen()
     }
+
+    fun productInWishListIsAdded(nameOfProduct: String): Boolean {
+        val product = findElementByText(nameOfProduct)
+
+        return product.isDisplayed
+    }
+
 }

@@ -1,10 +1,10 @@
 package screens
 
-import helpers.BaseScreen
+import helpers.BaseScreenWithMenuComponents
 import io.qameta.allure.Step
 import popups.CartItemMenuPopUp
 
-open class CartScreen : BaseScreen() {
+open class CartScreen : BaseScreenWithMenuComponents() {
     val monitor = findById("item_cart_offer_tv_title")
     val buyButton = findById("cart_fab_checkout")
     val phoneNumber = findById("checkout_order_item_tv_recipient_phone")
@@ -12,7 +12,6 @@ open class CartScreen : BaseScreen() {
     private val cart = findById("empty_base_tv_title")
     private val productButton = findById("item_cart_offer_cl_offer")
     private val plusButton = findById("view_number_picker_iv_plus")
-    private val wishListButton = findById("graph_wishlists")
     private val orderPrice = findById("checkout_tv_cost")
     private val getBack = findByXpath("//*[@content-desc='Перейти вгору']")
 
@@ -44,13 +43,6 @@ open class CartScreen : BaseScreen() {
     @Step("Click plus button")
     fun clickPlusButton() {
         plusButton.click()
-    }
-
-    @Step("Open Wish List")
-    fun openWishLists(): ListOfWishListsScreen {
-        wishListButton.click()
-
-        return ListOfWishListsScreen()
     }
 
     @Step("Increase the counts of product buy two and get order price")

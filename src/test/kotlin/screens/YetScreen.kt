@@ -1,9 +1,9 @@
 package screens
 
-import helpers.BaseScreen
+import helpers.BaseScreenWithMenuComponents
 import io.qameta.allure.Step
 
-class YetScreen : BaseScreen() {
+class YetScreen : BaseScreenWithMenuComponents() {
     val signUpButton = findById("item_menu_auth_tv_sign_up")
     val signInButton = findById("item_menu_auth_tv_sign_in")
     val rozetkaLogoImage = findById("item_menu_header_ll_logo")
