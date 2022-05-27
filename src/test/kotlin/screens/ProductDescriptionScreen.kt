@@ -12,6 +12,7 @@ class ProductDescriptionScreen : BaseScreen() {
     private val getBackButton = findByXpath("//*[@content-desc='Перейти вгору']")
     private val attribute = findById("offer_var_detail_variant_value_tv_text")
     val priceLabel = findById("view_price_tv_price")
+    val productName = findById("offer_tab_all_tv_title")
 
     @Step("Add to the Cart")
     fun addToCart(): ProductDescriptionScreen {
