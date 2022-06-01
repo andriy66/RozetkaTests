@@ -2,7 +2,6 @@ package tests
 
 import helpers.BaseTest
 import io.qameta.allure.Description
-import org.apache.commons.lang.math.NumberUtils.toInt
 import org.testng.Assert
 import org.testng.annotations.Test
 import screens.HomeScreen
@@ -82,7 +81,7 @@ class CartTests : BaseTest() {
             .openProductDescription()
 
         //Get previous price of product
-        val priceOfProd = toInt(prodDesc.priceLabel.text)
+        val priceOfProd = prodDesc.priceLabel.text.toInt()
 
         //Go to Cart screen again
         val cartScreen = prodDesc
@@ -90,7 +89,7 @@ class CartTests : BaseTest() {
 
         //Check that price if equal
         val priceAfterMultiplying = cartScreen.buyButton.text.split(" ")[3]
-        softAssert.assertEquals(toInt(priceAfterMultiplying), priceOfProd, "The price isn`t equal")
+        softAssert.assertEquals(priceAfterMultiplying.toInt(), priceOfProd, "The price isn`t equal")
 
         //Remove product from Cart
         val removeFromCart = cartScreen
@@ -122,14 +121,14 @@ class CartTests : BaseTest() {
         //Choose second product and get the product price
         val firstProdDesc = listOfProductsScreen
             .openFirstProductScreen()
-        val priceOfProduct = toInt(firstProdDesc.priceLabel.text)
+        val priceOfProduct = firstProdDesc.priceLabel.text.toInt()
 
         //Buy now
         val buyNow = firstProdDesc
             .buyNow()
 
         //Check that prices is equals
-        val actualPrice = toInt(buyNow.getOrderPrice().split(" ")[0])
+        val actualPrice = buyNow.getOrderPrice().split(" ")[0].toInt()
         Assert.assertEquals(actualPrice, priceOfProduct, "The prices are equals")
 
         //Get customer phone numbers

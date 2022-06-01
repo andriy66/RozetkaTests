@@ -59,6 +59,7 @@ open class CartScreen : BaseScreenWithMenuComponents() {
         val orderLabel = findById("checkout_order_item_tv_order_number")
         orderLabel.shouldBe(Condition.visible)
         scroll()
+
         return orderPrice.text
     }
 
