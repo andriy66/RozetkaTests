@@ -96,8 +96,6 @@
                     </argLine>
                     <suiteXmlFiles>
                         <suiteXmlFile>testng.xml</suiteXmlFile>
-                        <suiteXmlFile>regression.xml</suiteXmlFile>
-                        <suiteXmlFile>smoketests.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
                 <dependencies>
