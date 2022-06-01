@@ -33,7 +33,7 @@ class ProductDescriptionScreen : BaseScreen() {
     fun addToWishList(wishListName: String = "") {
         scroll()
         wishButton.click()
-        if (wishListName != "") {
+        if (wishListName.isNotEmpty()) {
             ChooseTheWishListPopUp().chooseWishList(wishListName)
         }
     }
