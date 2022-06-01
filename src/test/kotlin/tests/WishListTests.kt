@@ -77,4 +77,58 @@ class WishListTests : BaseTest() {
         softAssert.assertEquals(message, "Ви дійсно хочете видалити список \"Test\" в якому 1 товар?")
     }
 
+    @Test
+    @Description("Verify that the customer can create the custom Wish List and add more than one product")
+    fun verifyThatCustomerCanCreateCustomWishList() {
+        val wishListScreen = HomeScreen()
+            .openWishLists()
+
+        //Create the custom wish list with name 'Test'
+        val wishListName = "Test"
+        wishListScreen.createWishListWithName(wishListName)
+
+        //Check that wish list was created
+        val testWishListIsCreated = wishListScreen.wishListIsCreated(wishListName)
+        Assert.assertTrue(testWishListIsCreated, "Wish list isn`t created")
+
+        //Open list of products
+        val listOfProductsScreen = wishListScreen
+            .openCatalog()
+            .openPhonesSubCategoryScreen()
+            .openSubCategoryAdaptors()
+
+        //Add first product to Wish list 'Test'
+        val addFirstProductToWishList = listOfProductsScreen.openFirstProductScreen()
+        val firstProductName = addFirstProductToWishList.productName.text
+            addFirstProductToWishList.addToWishList(wishListName)
+            addFirstProductToWishList.getBack()
+
+        //Add second product to Wish list 'Test'
+        val addSecondProductToWishList = listOfProductsScreen.openSecondProductScreen()
+        val secondProductName = addSecondProductToWishList.productName.text
+        addSecondProductToWishList.addToWishList(wishListName)
+        addSecondProductToWishList.getBack()
+
+        //Go to Wish list
+        val wishList = listOfProductsScreen
+            .openWishLists()
+            .openCustomWishList(wishListName)
+
+        //Check that products are in the Wish List
+        val firstProductIsInWishList = wishList.productInWishListIsAdded(firstProductName)
+        val secondProductIsInWishList = wishList.productInWishListIsAdded(secondProductName)
+        val productsAreInWishList = true == firstProductIsInWishList == secondProductIsInWishList
+        softAssert.assertTrue(productsAreInWishList,"THe product isn`t in wish list")
+
+        //Delete wish list
+        val deleteWishList = wishList
+            .getBackToWishLists()
+            .openWishListMenu()
+            .deleteWishList()
+        val message = deleteWishList.message.text
+        deleteWishList.clickDelete()
+
+        //Check that message for deleting pop up is shown
+        softAssert.assertEquals(message, "Ви дійсно хочете видалити список \"Test\" в якому 2 товар?")
+    }
 }

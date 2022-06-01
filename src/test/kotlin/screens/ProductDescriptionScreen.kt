@@ -3,6 +3,7 @@ package screens
 import helpers.BaseScreen
 import helpers.ScrollDirection
 import io.qameta.allure.Step
+import popups.ChooseTheWishListPopUp
 import java.lang.Thread.sleep
 
 class ProductDescriptionScreen : BaseScreen() {
@@ -29,9 +30,12 @@ class ProductDescriptionScreen : BaseScreen() {
     }
 
     @Step("Add to Wish List")
-    fun addToWishList() {
+    fun addToWishList(wishListName: String = "") {
         scroll()
         wishButton.click()
+        if (wishListName.isNotEmpty()) {
+            ChooseTheWishListPopUp().chooseWishList(wishListName)
+        }
     }
 
     @Step("Click the 'Wish' Button")

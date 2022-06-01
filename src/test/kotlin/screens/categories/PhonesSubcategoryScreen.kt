@@ -3,16 +3,17 @@ package screens.categories
 import com.codeborne.selenide.Condition
 import helpers.BaseScreen
 import io.qameta.allure.Step
+import screens.ListOfProductsScreen
 
 class PhonesSubcategoryScreen : BaseScreen() {
     private val categoryAdapterLayout = findElementByText("Смартфони, ТВ і електроніка")
     private val categoryAdaptorsButton = findElementByText("Кабелі та адаптери")
 
     @Step("Open sub category 'Кабелі та адаптери'")
-    fun openSubCategoryAdaptors(): AdaptorsSubCategoryScreen {
+    fun openSubCategoryAdaptors(): ListOfProductsScreen {
         categoryAdaptorsButton.click()
 
-        return AdaptorsSubCategoryScreen()
+        return ListOfProductsScreen()
     }
 
     @Step("Phones SubCategory Screen was opened")

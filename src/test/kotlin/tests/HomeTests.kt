@@ -62,7 +62,7 @@ class HomeTests : BaseTest() {
         val prodDesc = listOfProduct.openFirstProductScreen()
         val productName = prodDesc.productName.text
         val watchedScreen = prodDesc.getBack()
-            .openHomeScreen()
+            .openHome()
             .openWatchScreen()
 
         //Check that product is in Watched List
