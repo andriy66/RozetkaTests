@@ -129,6 +129,6 @@ class WishListTests : BaseTest() {
         deleteWishList.clickDelete()
 
         //Check that message for deleting pop up is shown
-        softAssert.assertEquals(message, "Ви дійсно хочете видалити список \"Test\" в якому 2 товар?")
+        softAssert.assertEquals(message, "Ви дійсно хочете видалити список \"Test\" в якому 2 товари?")
     }
 }

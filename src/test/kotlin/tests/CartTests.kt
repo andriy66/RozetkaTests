@@ -2,7 +2,6 @@ package tests
 
 import helpers.BaseTest
 import io.qameta.allure.Description
-import org.apache.commons.lang.math.NumberUtils.toInt
 import org.testng.Assert
 import org.testng.annotations.Test
 import screens.HomeScreen
@@ -59,12 +58,12 @@ class CartTests : BaseTest() {
             .openSubCategoryAdaptors()
 
         //Choose second product
-        val secondProdDesc = listOfProductsScreen
-            .openSecondProductScreen()
+        val firstProdDesc = listOfProductsScreen
+            .openFirstProductScreen()
 
         //Add the product to Wish List
-        secondProdDesc.addToWishList()
-        val wishListsScreen = secondProdDesc
+        firstProdDesc.addToWishList()
+        val wishListsScreen = firstProdDesc
             .openWishList()
 
         //Check that product is one in Wish List
@@ -82,16 +81,15 @@ class CartTests : BaseTest() {
             .openProductDescription()
 
         //Get previous price of product
-        val priceOfProd = toInt(prodDesc.priceLabel.text)
+        val priceOfProd = prodDesc.priceLabel.text.toInt()
 
         //Go to Cart screen again
         val cartScreen = prodDesc
             .openCart()
-        cartScreen.clickPlusButton()
 
-        //Check that price multiplied
+        //Check that price if equal
         val priceAfterMultiplying = cartScreen.buyButton.text.split(" ")[3]
-        softAssert.assertEquals(toInt(priceAfterMultiplying), priceOfProd * 2, "The price isn`t equal")
+        softAssert.assertEquals(priceAfterMultiplying.toInt(), priceOfProd, "The price isn`t equal")
 
         //Remove product from Cart
         val removeFromCart = cartScreen
@@ -121,17 +119,17 @@ class CartTests : BaseTest() {
             .openSubCategoryAdaptors()
 
         //Choose second product and get the product price
-        val secondProdDesc = listOfProductsScreen
-            .openSecondProductScreen()
-        val priceOfProduct = toInt(secondProdDesc.priceLabel.text)
+        val firstProdDesc = listOfProductsScreen
+            .openFirstProductScreen()
+        val priceOfProduct = firstProdDesc.priceLabel.text.toInt()
 
         //Buy now
-        val buyNow = secondProdDesc
+        val buyNow = firstProdDesc
             .buyNow()
 
-        //Increase the counts of product buy two and check that prices is equals
-        val actualPrice = toInt(buyNow.clickPlusAndGetOrderPrice().split(" ")[0])
-        Assert.assertEquals(actualPrice, priceOfProduct * 2, "The prices are equals")
+        //Check that prices is equals
+        val actualPrice = buyNow.getOrderPrice().split(" ")[0].toInt()
+        Assert.assertEquals(actualPrice, priceOfProduct, "The prices are equals")
 
         //Get customer phone numbers
         val expectedNumber = "+380 98 396-76-11"

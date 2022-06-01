@@ -1,5 +1,6 @@
 package screens
 
+import com.codeborne.selenide.Condition
 import helpers.BaseScreenWithMenuComponents
 import io.qameta.allure.Step
 import popups.CartItemMenuPopUp
@@ -49,6 +50,15 @@ open class CartScreen : BaseScreenWithMenuComponents() {
     fun clickPlusAndGetOrderPrice(): String {
         plusButton.click()
         scroll(times = 2)
+
+        return orderPrice.text
+    }
+
+    @Step("Get order price")
+    fun getOrderPrice(): String {
+        val orderLabel = findById("checkout_order_item_tv_order_number")
+        orderLabel.shouldBe(Condition.visible)
+        scroll()
 
         return orderPrice.text
     }

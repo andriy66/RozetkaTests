@@ -18,9 +18,6 @@ class LoginTests : BaseTest()  {
                 .signOut()
         }
 
-        //Check that Yet Screen components are displayed
-        Assert.assertTrue(yetScreen.signInButton.isDisplayed, "The 'Sign In' button isn`t displayed")
-
         //Get valid data
         val validEmail = Properties.getProperty("email")
         val validPassword = Properties.getProperty("password")
