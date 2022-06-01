@@ -10,6 +10,7 @@ class ListOfComparisonScreen : BaseScreen() {
 
     @Step("Open comparison list")
     fun openComparisonList(): ComparisonScreen {
+        log.info("Open comparison list")
         comparisonListButton.click()
 
         return ComparisonScreen()
@@ -17,10 +18,13 @@ class ListOfComparisonScreen : BaseScreen() {
 
     @Step("Delete comparison list")
     fun deleteComparisonList(): ListOfComparisonScreen {
+        log.info("Delete comparison list")
         if (!message.isDisplayed) {
             menuOfListButton.click()
             val deleteListOption = findElementByText("Видалити список")
             deleteListOption.click()
+        } else {
+            log.info("The comparison list is empty")
         }
 
         return this

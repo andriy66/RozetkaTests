@@ -10,17 +10,21 @@ class NewWishListScreen : BaseScreen() {
 
     @Step("Fill in Wish List Name")
     fun fillInWishListName(name: String) {
+        log.info("Fill in Wish List Name")
         wishListNameField.sendKeys(name)
     }
 
     @Step("Click 'Create Wish List'")
     fun clickCreateWishList(): WishListScreen {
+        log.info("Click 'Create Wish List'")
         createButton.click()
 
         return WishListScreen()
     }
 
+    @Step("Make default")
     fun makeDefault() {
+        log.info("Make default")
         makeDefaultWishListCheckBox.click()
     }
 }

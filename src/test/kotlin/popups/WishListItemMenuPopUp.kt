@@ -10,6 +10,7 @@ class WishListItemMenuPopUp : BaseScreen() {
 
     @Step("Click 'Relocate Product'")
     fun clickRelocateProduct(): ChooseTheWishListPopUp {
+        log.info("Click 'Relocate Product'")
         relocateProductButton.click()
 
         return ChooseTheWishListPopUp()
@@ -17,6 +18,7 @@ class WishListItemMenuPopUp : BaseScreen() {
 
     @Step("Delete product from Wish List")
     fun deleteProductFromWishList(): WishListScreen {
+        log.info("Delete product from Wish List")
         deleteProductFromWishListButton.click()
 
         return WishListScreen()

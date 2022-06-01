@@ -14,6 +14,7 @@ open class WishListScreen : BaseScreenWithMenuComponents() {
 
     @Step("Open Item Menu")
     fun openItemMenu(): WishListItemMenuPopUp {
+        log.info("Open Item Menu")
         itemMenu.click()
 
         return WishListItemMenuPopUp()
@@ -25,6 +26,7 @@ open class WishListScreen : BaseScreenWithMenuComponents() {
 
     @Step("Get Back to the product description")
     fun getBackToProductDescription(): ProductDescriptionScreen {
+        log.info("Get Back to the product description")
         getBackButton.click()
 
         return ProductDescriptionScreen()
@@ -32,6 +34,7 @@ open class WishListScreen : BaseScreenWithMenuComponents() {
 
     @Step("Get Back to the Wish Lists")
     fun getBackToWishLists(): ListOfWishListsScreen {
+        log.info("Get Back to the Wish Lists")
         getBackButton.click()
 
         return ListOfWishListsScreen()
@@ -39,6 +42,7 @@ open class WishListScreen : BaseScreenWithMenuComponents() {
 
     @Step("Click button 'Buy All'")
     fun clickBuyAll(): CartScreen {
+        log.info("Click button 'Buy All'")
         buyAllButton.click()
 
         return CartScreen()

@@ -18,6 +18,7 @@ open class CartScreen : BaseScreenWithMenuComponents() {
 
     @Step("Open Item Menu")
     fun openItemMenu(): CartItemMenuPopUp {
+        log.info("Open Item Menu")
         itemMenu.click()
 
         return CartItemMenuPopUp()
@@ -27,8 +28,9 @@ open class CartScreen : BaseScreenWithMenuComponents() {
         return cart.text == "Кошик порожній"
     }
 
-    @Step("But product")
+    @Step("Buy product")
     fun clickBuyButton(): OrderingScreen {
+        log.info("Buy product")
         buyButton.click()
 
         return OrderingScreen()
@@ -36,6 +38,7 @@ open class CartScreen : BaseScreenWithMenuComponents() {
 
     @Step("Open product description")
     fun openProductDescription(): ProductDescriptionScreen {
+        log.info("Open product description")
         productButton.click()
 
         return ProductDescriptionScreen()
@@ -43,11 +46,13 @@ open class CartScreen : BaseScreenWithMenuComponents() {
 
     @Step("Click plus button")
     fun clickPlusButton() {
+        log.info("Click plus button")
         plusButton.click()
     }
 
     @Step("Increase the counts of product buy two and get order price")
     fun clickPlusAndGetOrderPrice(): String {
+        log.info("Increase the counts of product buy two and get order price")
         plusButton.click()
         scroll(times = 2)
 
@@ -56,6 +61,7 @@ open class CartScreen : BaseScreenWithMenuComponents() {
 
     @Step("Get order price")
     fun getOrderPrice(): String {
+        log.info("Get order price")
         val orderLabel = findById("checkout_order_item_tv_order_number")
         orderLabel.shouldBe(Condition.visible)
         scroll()
@@ -65,6 +71,7 @@ open class CartScreen : BaseScreenWithMenuComponents() {
 
     @Step("Get back")
     fun getBack() {
+        log.info("Get back")
         getBack.click()
     }
 }

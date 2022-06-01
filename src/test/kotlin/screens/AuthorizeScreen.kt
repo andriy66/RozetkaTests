@@ -19,6 +19,7 @@ class AuthorizeScreen : BaseScreen() {
 
     @Step("Authorize")
     fun authorize(login: String, password: String): AuthorizedYetScreen {
+        log.info("Authorize")
         loginField.sendKeys(login)
         passwordField.sendKeys(password)
         signInButton.click()

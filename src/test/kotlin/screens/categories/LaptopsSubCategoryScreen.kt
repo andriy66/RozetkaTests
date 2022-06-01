@@ -9,6 +9,7 @@ class LaptopsSubCategoryScreen : BaseScreen() {
 
     @Step("Open List of Products")
     fun openListOfProducts(): ListOfProductsScreen {
+        log.info("Open List of Products")
         monitorsButton.click()
 
         return ListOfProductsScreen()

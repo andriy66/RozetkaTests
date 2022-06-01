@@ -12,6 +12,7 @@ open class BaseScreenWithMenuComponents : BaseScreen() {
 
     @Step("Open 'Yet' button")
     fun openYet(): YetScreen {
+        log.info("Open 'Yet' button")
         yetButton.click()
 
         return YetScreen()
@@ -19,6 +20,7 @@ open class BaseScreenWithMenuComponents : BaseScreen() {
 
     @Step("Open 'Cart' button")
     fun openCart(): CartScreen {
+        log.info("Open 'Cart' button")
         cartButton.click()
 
         return CartScreen()
@@ -26,6 +28,7 @@ open class BaseScreenWithMenuComponents : BaseScreen() {
 
     @Step("Open 'Home' button")
     fun openHome(): HomeScreen {
+        log.info("Open 'Home' button")
         homeButton.click()
 
         return HomeScreen()
@@ -33,6 +36,7 @@ open class BaseScreenWithMenuComponents : BaseScreen() {
 
     @Step("Open 'Catalog' button")
     fun openCatalog(): CatalogScreen {
+        log.info("Open 'Catalog' button")
         catalogButton.click()
 
         return CatalogScreen()
@@ -40,6 +44,7 @@ open class BaseScreenWithMenuComponents : BaseScreen() {
 
     @Step("Open Wish Lists")
     fun openWishLists(): ListOfWishListsScreen {
+        log.info("Open Wish Lists")
         wishListsButton.click()
 
         return ListOfWishListsScreen()

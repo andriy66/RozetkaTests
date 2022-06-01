@@ -11,6 +11,7 @@ class PremiumInfoPopUp : BaseScreen() {
 
     @Step("Close the pop up and get back")
     fun closePremiumInfoPopUpAndGetBack(): PremiumSubscribeScreen {
+        log.info("Close the pop up and get back")
         closeButton.click()
         getBackButton.click()
 
