@@ -8,6 +8,7 @@ class ListOfWishListsItemMenuPopUp : BaseScreen() {
 
     @Step("Delete Wish List")
     fun deleteWishList(): DeletingPopUp {
+        log.info("Delete Wish List")
         deleteWishListButton.click()
 
         return DeletingPopUp()

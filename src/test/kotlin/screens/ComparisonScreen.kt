@@ -9,11 +9,13 @@ class ComparisonScreen : BaseScreen() {
 
     @Step("Click difference button")
     fun clickDifference() {
+        log.info("Click difference button")
         differenceButton.click()
     }
 
     @Step("Is proper displayed")
     fun isProperDisplayed(prop: String): Boolean {
+        log.info("Is proper displayed")
         val prop = findElementByText(prop)
 
         return prop.isDisplayed
@@ -21,6 +23,7 @@ class ComparisonScreen : BaseScreen() {
 
     @Step("Get back")
     fun getBack(): ListOfComparisonScreen {
+        log.info("Get back")
         getBackButton.click()
 
         return ListOfComparisonScreen()

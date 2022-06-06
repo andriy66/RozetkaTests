@@ -9,6 +9,7 @@ class GamerSubCategoryScreen : BaseScreen() {
 
     @Step("Open List of Game Consoles")
     fun openGameConsolesListOfProducts(): ListOfProductsScreen {
+        log.info("Open List of Game Consoles")
         gameConsoles.click()
 
         return ListOfProductsScreen()

@@ -11,6 +11,7 @@ class PhonesSubcategoryScreen : BaseScreen() {
 
     @Step("Open sub category 'Кабелі та адаптери'")
     fun openSubCategoryAdaptors(): ListOfProductsScreen {
+        log.info("Open sub category 'Кабелі та адаптери'")
         categoryAdaptorsButton.click()
 
         return ListOfProductsScreen()

@@ -9,6 +9,7 @@ class CartItemMenuPopUp : BaseScreen() {
 
     @Step("Click Remove From Cart")
     fun removeFromCart(): CartScreen {
+        log.info("Click Remove From Cart")
         removeFromCart.click()
 
         return CartScreen()

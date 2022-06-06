@@ -8,6 +8,7 @@ class ProfileSettingScreen : BaseScreen() {
 
     @Step("Sign out")
     fun signOut(): YetScreen {
+        log.info("Sign out")
         scroll(times = 5)
         signOutButton.click()
 

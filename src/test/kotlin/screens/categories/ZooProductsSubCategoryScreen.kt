@@ -9,6 +9,7 @@ class ZooProductsSubCategoryScreen : BaseScreen() {
 
     @Step("Choose the Sub Category 'Корм'")
     fun chooseTheCormSubCategory(): ListOfProductsScreen {
+        log.info("Choose the Sub Category 'Корм'")
         cormButton.click()
 
         return ListOfProductsScreen()

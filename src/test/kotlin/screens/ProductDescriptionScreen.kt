@@ -31,6 +31,7 @@ class ProductDescriptionScreen : BaseScreen() {
 
     @Step("Add to Wish List")
     fun addToWishList(wishListName: String = "") {
+        log.info("Get delivery price info")
         scroll()
         wishButton.click()
         if (wishListName.isNotEmpty()) {
@@ -40,6 +41,7 @@ class ProductDescriptionScreen : BaseScreen() {
 
     @Step("Click the 'Wish' Button")
     fun openWishList(): WishListScreen {
+        log.info("Get delivery price info")
         wishButton.click()
 
         return WishListScreen()

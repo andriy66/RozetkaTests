@@ -13,6 +13,7 @@ open class ListOfProductsScreen : BaseScreenWithMenuComponents() {
 
     @Step("Open second product Description")
     fun openSecondProductScreen(): ProductDescriptionScreen {
+        log.info("Open second product Description")
         secondProductButton.click()
 
         return ProductDescriptionScreen()
@@ -20,6 +21,7 @@ open class ListOfProductsScreen : BaseScreenWithMenuComponents() {
 
     @Step("Open first product Description")
     fun openFirstProductScreen(): ProductDescriptionScreen {
+        log.info("Open first product Description")
         firstProductButton.click()
 
         return ProductDescriptionScreen()
@@ -27,8 +29,10 @@ open class ListOfProductsScreen : BaseScreenWithMenuComponents() {
 
     @Step("Open Product Description")
     fun openProductDescription(productName: String): ProductDescriptionScreen {
+        log.info("Open Product Description")
         val product = findElementByText(productName).should(Condition.visible)
         if (!product.isDisplayed) {
+            log.error("The product isn`t exist")
             throw Exception("The product isn`t exist")
         }
         product.click()
@@ -38,6 +42,7 @@ open class ListOfProductsScreen : BaseScreenWithMenuComponents() {
 
     @Step("Open Sort Pop Up")
     fun openSortPopUp(): SortPopUp {
+        log.info("Open Sort Pop Up")
         sortButton.click()
 
         return SortPopUp()

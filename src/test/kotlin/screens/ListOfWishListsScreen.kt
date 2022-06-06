@@ -11,6 +11,7 @@ open class ListOfWishListsScreen : BaseScreenWithMenuComponents() {
 
     @Step("Open Wish List")
     fun openWishList(): WishListScreen {
+        log.info("Open Wish List")
         wishList.click()
 
         return WishListScreen()
@@ -18,6 +19,7 @@ open class ListOfWishListsScreen : BaseScreenWithMenuComponents() {
 
     @Step("Open custom wish list")
     fun openCustomWishList(wishListName: String): WishListScreen {
+        log.info("Open custom wish list")
         val customWishList = findElementByText(wishListName)
         customWishList.click()
 
@@ -26,6 +28,7 @@ open class ListOfWishListsScreen : BaseScreenWithMenuComponents() {
 
     @Step("Open Wish List Menu")
     fun openWishListMenu(): ListOfWishListsItemMenuPopUp {
+        log.info("Open Wish List Menu")
         listMenu.click()
 
         return ListOfWishListsItemMenuPopUp()
@@ -33,6 +36,7 @@ open class ListOfWishListsScreen : BaseScreenWithMenuComponents() {
 
     @Step("Crete wish list with name")
     fun createWishListWithName(wishListName: String) {
+        log.info("Crete wish list with name")
         createWishListButton.click()
         val wishListNameField = findById("wishlist_add_edit_et_title")
         wishListNameField.sendKeys(wishListName)

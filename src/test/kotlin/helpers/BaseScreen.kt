@@ -6,6 +6,7 @@ import com.codeborne.selenide.Selenide.`$`
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.WebDriverRunner.getWebDriver
 import io.appium.java_client.android.AndroidDriver
+import org.apache.log4j.Logger
 import org.openqa.selenium.By
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.Point
@@ -17,6 +18,7 @@ import java.time.Duration
 open class BaseScreen {
     val androidPrefix = "android:id/"
     val loaderIcon = findById("loader_icon")
+    val log: Logger = Logger.getLogger(this::class.java)
 
     fun findById(id: String, prefix: String = "ua.com.rozetka.shop:id/"): SelenideElement {
         return `$`(By.id(prefix + id))

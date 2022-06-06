@@ -16,6 +16,7 @@ class CatalogScreen : BaseScreenWithMenuComponents() {
 
     @Step("Open Category 'Товари для геймерів'")
     fun openCategoryGamersProducts(): GamerSubCategoryScreen {
+        log.info("Open Category 'Товари для геймерів'")
         categoryGamerButton.click()
 
         return GamerSubCategoryScreen()
@@ -23,6 +24,7 @@ class CatalogScreen : BaseScreenWithMenuComponents() {
 
     @Step("Open Category 'Ноутбуки та комп'ютери'")
     fun openCategoryLaptopsAndComputersSubCategoryScreen(): LaptopsSubCategoryScreen {
+        log.info("Open Category 'Ноутбуки та комп'ютери'")
         categoryLaptopsAndComputersButton.click()
 
         return LaptopsSubCategoryScreen()
@@ -30,6 +32,7 @@ class CatalogScreen : BaseScreenWithMenuComponents() {
 
     @Step("Open Category 'Зоотовари'")
     fun openZooProductSubCategoryScreen(): ZooProductsSubCategoryScreen {
+        log.info("Open Category 'Зоотовари'")
         categoryZooProductsButton.click()
 
         return ZooProductsSubCategoryScreen()
@@ -37,6 +40,7 @@ class CatalogScreen : BaseScreenWithMenuComponents() {
 
     @Step("Open Category 'Смартфони, ТВ і електроніка'")
     fun openPhonesSubCategoryScreen(): PhonesSubcategoryScreen {
+        log.info("Open Category 'Смартфони, ТВ і електроніка'")
         loaderIcon.shouldBe(Condition.not(Condition.visible))
         categoryPhonesButton.click()
 

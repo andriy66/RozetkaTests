@@ -10,6 +10,7 @@ class HomeScreen : BaseScreenWithMenuComponents() {
 
     @Step("Fill data in field 'Search'")
     fun findProduct(text: String): ListOfProductsScreen {
+        log.info("Fill data in field 'Search'")
         searchField.click()
         findElementByText(text).shouldBe(Condition.visible).click()
 
@@ -18,6 +19,7 @@ class HomeScreen : BaseScreenWithMenuComponents() {
 
     @Step("Open Watch Screen")
     fun openWatchScreen(): WatchedScreen {
+        log.info("Open Watch Screen")
         watchedScreen.click()
 
         return WatchedScreen()

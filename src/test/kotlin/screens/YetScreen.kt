@@ -22,6 +22,7 @@ class YetScreen : BaseScreenWithMenuComponents() {
 
     @Step("Open Authorize Screen")
     fun openAuthorizeScreen(): AuthorizeScreen {
+        log.info("Open Authorize Screen")
         signInButton.click()
 
         return AuthorizeScreen()
@@ -29,6 +30,7 @@ class YetScreen : BaseScreenWithMenuComponents() {
 
     @Step("Open Watched Screen")
     fun openWatchedScreen(): WatchedScreen {
+        log.info("Open Watched Screen")
         scroll()
         watchedButton.click()
 
@@ -37,6 +39,7 @@ class YetScreen : BaseScreenWithMenuComponents() {
 
     @Step("Open Comparison Screen")
     fun openComparisonScreen(): ListOfComparisonScreen {
+        log.info("Open Comparison Screen")
         comparisonButton.click()
 
         return ListOfComparisonScreen()
@@ -44,6 +47,7 @@ class YetScreen : BaseScreenWithMenuComponents() {
 
     @Step("Open Premium Subscribe screen")
     fun openPremiumSubscribeScreen(): PremiumSubscribeScreen {
+        log.info("Open Premium Subscribe screen")
         premiumSubscribeButton.click()
 
         return PremiumSubscribeScreen()
@@ -51,6 +55,7 @@ class YetScreen : BaseScreenWithMenuComponents() {
 
     @Step("Open profile settings")
     fun openProfileSettings(): ProfileSettingScreen {
+        log.info("Open profile settings")
         profileSettingsButton.click()
 
         return ProfileSettingScreen()

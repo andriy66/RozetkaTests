@@ -13,6 +13,7 @@ class PremiumSubscribeScreen : BaseScreen() {
 
     @Step("Get delivery price info")
     fun getDeliveryPriceInfo(delivery: Delivery): String {
+        log.info("Get delivery price info")
         premiumContentLabel.shouldBe(Condition.visible)
         scroll()
         val delivery = findById(delivery.toString())
@@ -22,6 +23,7 @@ class PremiumSubscribeScreen : BaseScreen() {
 
     @Step("Choose the premium subscribe")
     fun chooseThePremiumSubscribe(): ChoosePremiumScreen {
+        log.info("Choose the premium subscribe")
         scroll(ScrollDirection.UP, 3)
         chooseThePremiumSubButton.click()
 
@@ -30,6 +32,7 @@ class PremiumSubscribeScreen : BaseScreen() {
 
     @Step("Click sales button")
     fun clickSalesButton(): SalesPopUp {
+        log.info("Click sales button")
         salesButton.click()
 
         return SalesPopUp()
@@ -39,7 +42,7 @@ class PremiumSubscribeScreen : BaseScreen() {
         delivery: String = "nova_poshta",
         private val type: String = "premium_tv_free_delivery_${delivery}_old_price"
     ) {
-        NOVA_POSHTA(),
+        NOVA_POSHTA,
         UKR_POSHTA("ukrposhta"),
         COURIER("courier"),
         JUSTIN("just_in"),

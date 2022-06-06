@@ -10,6 +10,7 @@ class ChooseTheWishListPopUp : BaseScreen() {
 
     @Step("Choose wish list")
     fun chooseWishList(wishListName: String): ProductDescriptionScreen {
+        log.info("Choose wish list")
         val chooseWishList = findElementByText(wishListName)
         chooseWishList.click()
 
@@ -18,6 +19,7 @@ class ChooseTheWishListPopUp : BaseScreen() {
 
     @Step("Create Wish List")
     fun createWishList(): NewWishListScreen {
+        log.info("Create Wish List")
         createWishListButton.click()
 
         return NewWishListScreen()
